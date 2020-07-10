@@ -21,7 +21,7 @@ const quotes = [
     "System.Console.WriteLine(\"hire me, i need a job\");",
     "R.I.P. grandma. i’ll miss you dearly",
     "this page has an extreme lack of finesse",
-    "“pack a punch”? how does one pack the nonphysical?",
+    "“pack a punch”? how does one pack an action?",
     "don’t forget to write your semicolons",
     "ÿþpardon my byte order mark",
     "it’s been one week since i’ve done anything",
