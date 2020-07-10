@@ -1,0 +1,134 @@
+:root {
+    --color-background: #000;
+    --color-dark-3: hsl(190deg, 25%, 20%);
+    --color-light-1: hsl(190deg, 20%, 85%);
+    --color-light-2: hsl(190deg, 15%, 65%);
+    --color-light-3: hsl(190deg, 25%, 65%);
+    --color-light-4: hsl(190deg, 70%, 70%);
+}
+
+body {
+    background-color: var(--color-background);
+    font-family: "Verdana";
+    color: var(--color-light-1);
+}
+
+a {
+    color: var(--color-light-3);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-light-4);
+}
+
+a:hover span {
+    text-decoration: underline;
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.window {
+    margin: 8pt;
+    padding: 8pt;
+    border-width: 4pt;
+    border-color: var(--color-light-1);
+    border-style: solid;
+    box-shadow: 2pt 2pt var(--color-light-2);
+    background-color: var(--color-dark-3);
+}
+
+.info {
+    font-size: 18pt;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info-name-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.info-avatar {
+    width: 1em;
+    height: 1em;
+    margin-right: 8pt;
+}
+
+.info-tagline {
+    font-size: small;
+    color: var(--color-light-2);
+}
+
+.info-tagline-randomizer {
+    vertical-align: super;
+    font-size: xx-small;
+    color: var(--color-light-2);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    font-size: 12pt;
+    font-weight: 700;
+    border-bottom-color: var(--color-light-1);
+    border-bottom-width: 1pt;
+    border-bottom-style: solid;
+    padding-bottom: 4pt;
+    margin-bottom: 4pt;
+}
+
+.section-content {
+    font-size: 9pt;
+    margin: 0;
+}
+
+.section-content + .section-content,
+.info + .section-content {
+    margin-top: 8pt;
+}
+
+p {
+    margin: 0;
+}
+
+span.emphasis {
+    font-weight: 600;
+}
+
+.social-container {
+    margin-top: 8pt;
+}
+
+.social-container > * + * {
+    margin-left: 4pt;
+}
+
+.social {
+    font-size: 10pt;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.social-icon {
+    width: 1em;
+    margin-right: 4pt;
+}
