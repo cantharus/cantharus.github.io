@@ -85,6 +85,7 @@ a:hover span {
     vertical-align: super;
     font-size: 0.75em;
     color: var(--color-light-2);
+    display: none;
 }
 
 .section {

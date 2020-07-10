@@ -59,5 +59,11 @@ function chooseQuote() {
     tagline.innerText = getRandomQuote();
 }
 
-document.getElementById("randomizer").addEventListener("click", chooseQuote);
-chooseQuote();
+function onLoad() {
+    let randomizer = document.getElementById("randomizer");
+    randomizer.addEventListener("click", chooseQuote);
+    randomizer.style = "display: inline";
+    chooseQuote();
+}
+
+window.onload = onLoad;
