@@ -1,0 +1,107 @@
+:root {
+    --ks-theme-font: sans-serif;
+
+    --ks-theme-background: rgb(49, 59, 70);
+    --ks-theme-text: rgb(238, 248, 255);
+
+    --ks-theme-anchor: rgb(163, 202, 255);
+
+    --ks-theme-wittyquote-selector: var(--ks-theme-text);
+}
+
+body {
+    font-family: var(--ks-theme-font);
+    color: var(--ks-theme-text);
+    background: var(--ks-theme-background);
+    font-size: 16pt;
+}
+
+a {
+    color: var(--ks-theme-anchor);
+}
+
+a:visited {
+    color: var(--ks-theme-anchor);
+}
+
+.ks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ks-container > * {
+    width: 75vw;
+}
+
+#ks-identity-header {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+}
+
+#ks-identity-stack {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#ks-identity-avatar > img {
+    width: 8em;
+    border-radius: 100%;
+}
+
+#ks-identity-name {
+    font-size: 2em;
+}
+
+#ks-identity-wittyquote-selector {
+    vertical-align: super;
+    font-size: 1em;
+}
+
+#ks-identity-wittyquote-selector > a {
+    text-decoration: none;
+}
+
+#ks-identity-wittyquote-selector > a:visited {
+    color: var(--ks-theme-wittyquote-selector);
+}
+
+#ks-identity-wittyquote-selector > a::before {
+    content: ' ';
+    font-size: 0.15em;
+}
+
+#ks-identity-wittyquote-selector > a::after {
+    content: '+';
+}
+
+@keyframes rotate-hack-for-quotes {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+a.ks-funny-link {
+    color: var(--ks-theme-text);
+    text-decoration: none;
+}
+
+a.ks-funny-link:hover {
+    text-decoration: underline;
+}
+
+a.ks-funny-link-disabled:hover {
+    text-decoration: none !important;
+}
+
+#ks-footer {
+    position: fixed;
+    bottom: 0.5em;
+    font-size: 0.75em;
+}
