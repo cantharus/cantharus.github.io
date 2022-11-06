@@ -60,7 +60,6 @@
 
         // To avoid repetition, if the next quote would be the same as the current one, push it to the end of the queue.
         if (currentQuoteQueue[0] == result) {
-            console.log("shift time");
             currentQuoteQueue.shift();
             currentQuoteQueue.push(result);
         }
