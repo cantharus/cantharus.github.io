@@ -65,10 +65,6 @@ a:visited {
     text-decoration: none;
 }
 
-#ks-identity-wittyquote-selector > a:visited {
-    color: var(--ks-theme-wittyquote-selector);
-}
-
 #ks-identity-wittyquote-selector > a::before {
     content: ' ';
     font-size: 0.15em;
