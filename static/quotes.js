@@ -44,6 +44,7 @@
 
     // Other quotes and easter eggs
     const quotes = [
+        "🗿",
         "<code>from __future__ import timetravel</code>",
         "It is a tradition for me to have a bunch of useless fluff on my personal website. Thank you for taking the time to read this! <small>(There&rsquo;s no prize for doing that. Sorry.)</small>",
         "The sky is your limit, unless you&rsquo;ve already left the atmosphere.",
