@@ -14,6 +14,10 @@ body {
     color: var(--ks-theme-text);
     background: var(--ks-theme-background);
     font-size: 16pt;
+    padding: 8em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
 a {
@@ -27,11 +31,6 @@ a:visited {
 .ks-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-.ks-container > * {
-    width: 75vw;
 }
 
 #ks-identity-header {
@@ -44,7 +43,6 @@ a:visited {
 #ks-identity-stack {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
 }
 
 #ks-identity-avatar > img {
@@ -54,10 +52,11 @@ a:visited {
 
 #ks-identity-name {
     font-size: 2em;
+    font-weight: bold;
 }
 
 #ks-identity-wittyquote-selector {
-    vertical-align: super;
+    vertical-align: sub;
     font-size: 1em;
 }
 
@@ -71,17 +70,26 @@ a:visited {
 }
 
 #ks-identity-wittyquote-selector > a::after {
-    content: '+';
+    content: '>';
 }
 
-@keyframes rotate-hack-for-quotes {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.ks-header {
+    font-size: 1.5em;
+    font-weight: bold;
 }
+
+p {
+    margin: 0.25em 0;
+}
+
+#ks-footer {
+    position: fixed;
+    left: 0.5em;
+    bottom: 0.5em;
+    font-size: 0.75em;
+}
+
+/* hmm... */
 
 a.ks-funny-link {
     color: var(--ks-theme-text);
@@ -94,10 +102,4 @@ a.ks-funny-link:hover {
 
 a.ks-funny-link-disabled:hover {
     text-decoration: none !important;
-}
-
-#ks-footer {
-    position: fixed;
-    bottom: 0.5em;
-    font-size: 0.75em;
 }

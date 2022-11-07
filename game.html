@@ -30,7 +30,14 @@
     <h1>YOU LOST</h1>
     <h2>The Game</h2>
     <footer>
-        <a href="index.html">Damn you! Put me back&hellip;</a>
+        <a href="/" id="a">Damn you! Put me back&hellip;</a>
+        <script>
+            const a = document.getElementById("a");
+            a.href = "#";
+            a.addEventListener("click", function () {
+                history.back();
+            });
+        </script>
     </footer>
 </body>
 </html>
