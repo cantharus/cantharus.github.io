@@ -99,7 +99,19 @@
         "How did you stumble upon my website?",
         "Not many people will see this! <small>They&rsquo;re not missing out on much&hellip;</small>",
         "Honestly quite incredible!",
-        "<a class=\"ks-funny-link\" href=\"https://shrekyourself.tumblr.com/post/67116150608\" target=\"_blank\">can u fEel it&#x201E; <span style=\"font-style:italic;font-weight:bold;\">b a n an ba ?</span></a>"
+        "<a class=\"ks-funny-link\" href=\"https://shrekyourself.tumblr.com/post/67116150608\" target=\"_blank\">can u fEel it&#x201E; <span style=\"font-style:italic;font-weight:bold;\">b a n an ba ?</span></a>",
+        ["Bazinga. &#x2728;", "Bazingain&rsquo;t. &#x274C;"],
+        "<em>(insert Seinfeld theme here)</em>",
+        "Why can I hear boss music?",
+        "Women fear me. Men fear me. Fish fear me. I fear myself.",
+        "&#x1F980; &#x1F980; &#x1F980; Have you seen the crab rave? &#x1F980; &#x1F980; &#x1F980;",
+        "<em>Match accepted. Waiting for other players&hellip;</em>",
+        "Hah! I have your IP address now! <small>Or, well, I would, if I hosted this site myself&hellip;</small>",
+        "Want to learn more about baboons? Play <a href=\"https://www.trombonechamp.com/\" target=\"_blank\"><em>Trombone Champ</em></a>!",
+        "Gaskeep, gateboss, girllight. <small>&hellip;Is that how it goes?</small>",
+        "You wouldn&rsquo;t download a car. <small><a class=\"ks-funny-link\" href=\"https://www.turbosquid.com/3d-models/3d-dutch-bicycle-1916069\" target=\"_blank\">But maybe you&rsquo;d download a bike&hellip;</a></small>",
+        "Your Honor, with all due respect, I don&rsquo;t care.",
+        "Have you tried <a href=\"https://www.ace-attorney.com/great1-2/\" target=\"_blank\"><em>The Great Ace Attorney Chronicles</em></a>?"
     ];
 
     // Hack to merge the two quote pools together
