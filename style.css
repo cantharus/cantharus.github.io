@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.cantharus {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes rotat {
+    from { transform: rotate(0deg) }
+    to { transform: rotate(360deg); }
+}
+
+.cantharus > img {
+    animation-name: rotat;
+    animation-duration: 20s;
+    animation-delay: 0s;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
