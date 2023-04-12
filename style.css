@@ -1,14 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --bg-color: #445469;
+    --fg-color: #eee;
+    --a-color: #ffb43b;
+    --font-family: 'Schibsted Grotesk', 'Noto Sans', sans-serif;
+    --quote-font-family: 'Merriweather', serif;
+    font-size: clamp(4vmin, 16pt, 30pt);
+}
+
+::selection {
+    background-color: rgba(200, 255, 255, 0.3);
+}
+
+a, a:visited, a:hover {
+    color: var(--a-color);
+    text-decoration: none;
+}
+
 body {
     margin: 0;
     padding: 0;
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
 }
 
-.cantharus {
+body > .container {
     display: flex;
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+body > .container > .quote-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg-color);
+    text-align: center;
+    gap: 0.25rem;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+body > .container > .quote-container > .quote {
+    font-size: 2rem;
+    font-family: var(--quote-font-family);
+}
+
+body > .container > .quote-container > .quote-changer {
+    font-size: 1rem;
+    user-select: none;
+}
+
+body > .container > .cantharus {
+    display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
@@ -18,7 +72,9 @@ body {
     to { transform: rotate(360deg); }
 }
 
-.cantharus > img {
+body > .container > .cantharus > img {
+    max-width: 50%;
+    max-height: 50%;
     animation-name: rotat;
     animation-duration: 20s;
     animation-delay: 0s;
@@ -26,4 +82,17 @@ body {
     animation-fill-mode: both;
     animation-iteration-count: infinite;
     animation-play-state: running;
+}
+
+body > .container > .links-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+
+body > .container > .links-parent > .bullet {
+    color: var(--fg-color);
+    user-select: none;
 }
