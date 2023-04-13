@@ -129,7 +129,7 @@
             "<span lang=\"pt-PT\">Podes falar comigo em portugu\u{EA}s!</span>",
             "<span lang=\"es-ES\">\u{A1}Puedes hablar conmigo en castellano!</span>",
             "<span lang=\"nl\">Je kunt met me praten in het Nederlands!</span>",
-            "<span lang=\"pl\">Mo\u{17C}esz m\u{F3}wi\u{107} ze mn\u{105} po polsku!</span>",
+            "<span lang=\"pl\">Mo\u{17C}esz ze mn\u{105} m\u{F3}wi\u{107} po polsku!</span>",
         ],
 
         //// source engine
