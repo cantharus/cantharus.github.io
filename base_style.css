@@ -57,3 +57,11 @@ code {
 small {
     font-size: 0.7em;
 }
+
+p {
+    margin: 0;
+}
+
+p + p {
+    margin-top: 0.5em;
+}

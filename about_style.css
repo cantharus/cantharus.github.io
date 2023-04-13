@@ -1,23 +1,29 @@
 @import url("base_style.css");
 
-#about-main h1 {
+#container {
+    padding: 2rem;
+}
+
+h1 {
     font-family: var(--quote-font-family);
 }
 
-#about-main ul {
-    list-style-position: outside;
+ul {
+    list-style-type: none;
+    list-style-position: inside;
+    padding-left: 0;
 }
 
-#about-main li {
-    padding-left: 0.2em;
+img.social {
+    width: 1em;
+    user-select: none;
 }
 
-#social-link-github {
-    list-style-image: url(img/github-mark-white.svg);
-}
-
-#social-link-discord {
-    list-style-image: url(img/discord-mark-white.svg);
+li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
 }
 
 #about-footer {
