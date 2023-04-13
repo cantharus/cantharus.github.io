@@ -1,40 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
-
-:root {
-    --bg-color: #445469;
-    --code-bg-color: #383d43;
-    --fg-color: #eee;
-    --a-color: #ffb43b;
-    --font-family: 'Schibsted Grotesk', 'Noto Sans', sans-serif;
-    --quote-font-family: 'Merriweather', serif;
-    font-size: clamp(4vmin, 16pt, 36pt);
-}
-
-::selection {
-    background-color: rgba(200, 255, 255, 0.3);
-}
-
-a, a:visited {
-    color: var(--a-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-body {
-    display: flex;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    align-items: center;
-    justify-content: center;
-}
+@import url("base_style.css");
 
 #container {
     display: grid;
@@ -55,7 +19,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: var(--fg-color);
     text-align: center;
     gap: 0.25rem;
     flex-direction: column;
@@ -73,27 +36,6 @@ body {
 
 #quote p + p {
     margin-top: 0.5em;
-}
-
-#quote small {
-    font-size: 0.7em;
-}
-
-#quote a.hidden {
-    color: var(--fg-color);
-    text-decoration: none;
-}
-
-#quote a.hidden:hover {
-    color: var(--a-color);
-    text-decoration: underline;
-}
-
-#quote code {
-    background-color: var(--code-bg-color);
-    line-height: 1.75em;
-    padding: 0.25em;
-    font-family: 'IBM Plex Mono', monospace;
 }
 
 #noscript {
@@ -143,10 +85,6 @@ body {
     gap: 1rem;
     margin: 1rem;
     user-select: none;
-}
-
-#links-parent > .bullet {
-    color: var(--fg-color);
 }
 
 @media screen and (max-width: 30rem) {

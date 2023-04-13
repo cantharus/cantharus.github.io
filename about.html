@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="about_style.css">
+    <script src="cantharus.js"></script>
+    <title>cantharus</title>
+</head>
+<body>
+    <style>
+@media not print {
+    #print-disclaimer {
+        display: none;
+    }
+}
+
+@media print {
+    #container {
+        display: none !important;
+    }
+}
+    </style>
+    <div id="print-disclaimer">
+        <h1>Why are you printing this page!?</h1>
+        <p><em>It&rsquo;s not supposed to be printed!!</em></p>
+    </div>
+    <div id="container">
+        <main id="about-main">
+            <h1>Hey there.</h1>
+            <p>I&rsquo;m Andrew &ldquo;Cyril&rdquo; Austin. I&rsquo;m a software developer, linguist and musician.</p>
+            <p>You can find me in these places:</p>
+            <ul>
+                <li id="social-link-github"><a href="https://github.com/cantharus" target="_blank">cantharus</a></li>
+                <li id="social-link-discord">cantharus#8204</li>
+            </ul>
+        </main>
+        <footer id="about-footer">
+            <a href="/">&lsaquo; back</a>
+        </footer>
+    </div>
+</body>
+</html>

@@ -199,13 +199,6 @@
     let lastQuote;
 
     document.addEventListener("DOMContentLoaded", (ev) => {
-        // TODO: remove when about me page is made
-        const aboutLink = document.getElementById("link-about");
-        if (aboutLink !== undefined) aboutLink.addEventListener("click", (ev) => {
-            alert("no information about me yet... sorry...");
-            ev.preventDefault();
-        });
-    
         // TODO: remove when portfolio is made
         const portfolioLink = document.getElementById("link-portfolio");
         if (portfolioLink !== undefined) portfolioLink.addEventListener("click", (ev) => {

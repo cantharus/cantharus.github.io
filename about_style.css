@@ -1,0 +1,25 @@
+@import url("base_style.css");
+
+#about-main h1 {
+    font-family: var(--quote-font-family);
+}
+
+#about-main ul {
+    list-style-position: outside;
+}
+
+#about-main li {
+    padding-left: 0.2em;
+}
+
+#social-link-github {
+    list-style-image: url(img/github-mark-white.svg);
+}
+
+#social-link-discord {
+    list-style-image: url(img/discord-mark-white.svg);
+}
+
+#about-footer {
+    font-size: 0.8em;
+}
