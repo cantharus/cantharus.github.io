@@ -8,6 +8,23 @@
     <title>cantharus</title>
 </head>
 <body>
+    <style>
+@media not print {
+    #print-disclaimer {
+        display: none;
+    }
+}
+
+@media print {
+    #container {
+        display: none !important;
+    }
+}
+    </style>
+    <div id="print-disclaimer">
+        <h1>Why are you printing this page!?</h1>
+        <p><em>It&rsquo;s not supposed to be printed!!</em></p>
+    </div>
     <div id="container">
         <div id="quote-container">
             <div id="quote">Welcome!</div>
