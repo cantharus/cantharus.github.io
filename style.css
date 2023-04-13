@@ -26,18 +26,19 @@ body {
     font-family: var(--font-family);
 }
 
-body > .container {
+#container {
     display: flex;
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
+    gap: 4rem;
 }
 
-body > .container > .quote-container {
+#quote-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,21 +51,22 @@ body > .container > .quote-container {
     padding-right: 1rem;
 }
 
-body > .container > .quote-container > .quote {
+#quote {
     font-size: 2rem;
     font-family: var(--quote-font-family);
 }
 
-body > .container > .quote-container > .quote-changer {
+#quote-changer {
     font-size: 1rem;
     user-select: none;
 }
 
-body > .container > .cantharus {
+#cantharus {
     display: flex;
-    width: 100%;
+    width: 24vmin;
     align-items: center;
     justify-content: center;
+    user-select: none;
 }
 
 @keyframes rotat {
@@ -72,9 +74,8 @@ body > .container > .cantharus {
     to { transform: rotate(360deg); }
 }
 
-body > .container > .cantharus > img {
-    max-width: 50%;
-    max-height: 50%;
+#cantharus > img {
+    width: 100%;
     animation-name: rotat;
     animation-duration: 20s;
     animation-delay: 0s;
@@ -84,15 +85,25 @@ body > .container > .cantharus > img {
     animation-play-state: running;
 }
 
-body > .container > .links-parent {
+#links-parent {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     padding-bottom: 2rem;
+    user-select: none;
 }
 
-body > .container > .links-parent > .bullet {
+#links-parent > .bullet {
     color: var(--fg-color);
-    user-select: none;
+}
+
+@media screen and (max-width: 30rem) {
+    #links-parent {
+        flex-direction: column;
+    }
+
+    #links-parent > .bullet {
+        display: none;
+    }
 }
