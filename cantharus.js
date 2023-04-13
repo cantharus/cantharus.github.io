@@ -1,6 +1,8 @@
 (() => {
     // visit count :)
     localStorage.setItem("visitcount", Number(localStorage.getItem("visitcount")) + 1);
+    const visitCountRequiredForFunny = 5;
+    const chanceForFunny = 0.2;
 
     const cantharus = {};
     window.cantharus = cantharus;
@@ -148,13 +150,56 @@
             "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a class=\"hidden\" href=\"https://www.ace-attorney.com/great1-2\" target=\"_blank\">You should try <em>the Great Ace Attorney Chronicles</em>!</a></p>",
         ],
 
+        //// d&d
+        (el) => {
+            let span1 = document.createElement("span");
+            let span2 = document.createElement("span");
+            span2.style.border = "2px solid var(--fg-color)";
+            span2.style.visibility = "hidden";
+            span2.style.borderRadius = "0.5em";
+            span2.style.padding = "0.2em";
+            span2.style.fontSize = "0.7em";
+            span2.style.fontFamily = "var(--font-family)";
+            let a = document.createElement("a");
+            a.innerText = "Roll for initiative! ";
+            let rolled;
+            a.addEventListener("click", (ev) => {
+                if (!rolled) {
+                    rolled = true;
+                    a.classList.add("disabled");
+                    a.style.userSelect = "none";
+                    const roll = rand(20) + 1;
+                    span2.innerText = roll.toString();
+                    span2.style.visibility = "initial";
+                    if (roll === 20) {
+                        span2.style.color = "#5c5";
+                    } else if (roll === 1) {
+                        span2.style.color = "#c55";
+                    }
+                }
+                ev.preventDefault();
+            });
+            span1.appendChild(a);
+            el.appendChild(span1);
+            el.appendChild(span2);
+        },
+
         //// other games
         "Thank you Mario! <a class=\"hidden\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
 
         //// meta
         // quote counter
         (el) => {
-            const count = pageLoadQuotes.length + otherQuotes.length;
+            let count = 0;
+            for (const quote of cantharus.quotes.concat(pageLoadQuotes)) {
+                if (Array.isArray(quote))
+                {
+                    count += quote.length;
+                } else {
+                    count++;
+                }
+            }
+
             let text;
             if (count === 0) {
                 text = "Logic bomb!";
@@ -170,12 +215,12 @@
         },
         // chance
         (el) => {
-            const count = otherQuotes.length;
+            const count = cantharus.quotes.length;
             let text;
-            if (count < 2) {
+            if (count < 2 || getVisitCount() < visitCountRequiredForFunny) {
                 text = "Nothing to see here, move along\u{2026}";
             } else {
-                const chance = (100 / count).toPrecision(3).replace(/(?<!0)0+$/, "");
+                const chance = (chanceForFunny * 100 / count).toPrecision(3).replace(/(?<!0)0+$/, "");
                 text = `Fun fact: there is a ${chance}% chance of getting this quote as your first one.`;
                 if (!lastQuote) {
                     text = text.concat(" <small>Looks like RNG is in your favour today!</small>");
@@ -241,7 +286,7 @@
         let pageLoadQuote;
         const pageLoadQuotePool = cantharus.quotes.slice();
         if (sessionStorage.getItem("visited")) {
-            if (Math.random() < 0.8) {
+            if (Math.random() >= chanceForFunny) {
                 pageLoadQuote = sampleArray(pageLoadQuotes);
             } else {
                 if (pageLoadQuotePool.length > 0) {
@@ -317,8 +362,12 @@
         quotePool = cantharus.quotes.slice();
     }
 
+    function rand(max) {
+        return Math.floor(Math.random() * max);
+    }
+
     function sampleArrayIndex(array) {
-        return Math.floor(Math.random() * array.length);
+        return rand(array.length);
     }
 
     function sampleArray(array) {
