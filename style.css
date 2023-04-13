@@ -9,7 +9,7 @@
     --a-color: #ffb43b;
     --font-family: 'Schibsted Grotesk', 'Noto Sans', sans-serif;
     --quote-font-family: 'Merriweather', serif;
-    font-size: clamp(4vmin, 16pt, 30pt);
+    font-size: clamp(4vmin, 16pt, 36pt);
 }
 
 ::selection {
@@ -26,40 +26,53 @@ a:hover {
 }
 
 body {
+    display: flex;
+    height: 100vh;
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
     font-family: var(--font-family);
+    align-items: center;
+    justify-content: center;
 }
 
 #container {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
+    display: grid;
     margin: 0;
     padding: 0;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4rem;
+    grid-template-rows: 30vh 30vh 30vh;
+    grid-template-columns: auto;
+    grid-template-areas:
+        "a"
+        "b"
+        "c";
+    justify-items: center;
+    gap: 1rem;
 }
 
 #quote-container {
+    grid-area: a;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     color: var(--fg-color);
     text-align: center;
     gap: 0.25rem;
     flex-direction: column;
-    padding-top: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    margin: 1rem;
 }
 
 #quote {
     font-size: 1rem;
     font-family: var(--quote-font-family);
+}
+
+#quote p {
+    margin: 0;
+}
+
+#quote p + p {
+    margin-top: 0.5em;
 }
 
 #quote small {
@@ -78,8 +91,8 @@ body {
 
 #quote code {
     background-color: var(--code-bg-color);
-    padding: 0.5rem;
-    border-radius: 0.2rem;
+    line-height: 1.75em;
+    padding: 0.25em;
     font-family: 'IBM Plex Mono', monospace;
 }
 
@@ -97,8 +110,9 @@ body {
 }
 
 #cantharus {
+    grid-area: b;
+    max-height: 50vmin;
     display: flex;
-    width: 24vmin;
     align-items: center;
     justify-content: center;
     user-select: none;
@@ -110,7 +124,8 @@ body {
 }
 
 #cantharus > img {
-    width: 100%;
+    max-width: 90%;
+    max-height: 90%;
     animation-name: rotat;
     animation-duration: 20s;
     animation-delay: 0s;
@@ -121,11 +136,12 @@ body {
 }
 
 #links-parent {
+    grid-area: c;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 1rem;
-    padding-bottom: 2rem;
+    margin: 1rem;
     user-select: none;
 }
 
@@ -135,7 +151,10 @@ body {
 
 @media screen and (max-width: 30rem) {
     #links-parent {
+        align-items: center;
+        justify-content: flex-start;
         flex-direction: column;
+        gap: 0.5rem;
     }
 
     #links-parent > .bullet {
