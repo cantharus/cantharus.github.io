@@ -124,10 +124,10 @@
             "You\u{2019}re telling me a fry shrimped this rice? <small>Wait\u{2026}</small>",
         ],
         [
-            "Podes falar comigo em portugu\u{EA}s!",
-            "\u{A1}Puedes hablar conmigo en castellano!",
-            "Je kunt met me praten in het Nederlands!",
-            "Mo\u{17C}esz m\u{F3}wi\u{107} ze mn\u{105} po polsku!",
+            "<span lang=\"pt-PT\">Podes falar comigo em portugu\u{EA}s!</span>",
+            "<span lang=\"es-ES\">\u{A1}Puedes hablar conmigo en castellano!</span>",
+            "<span lang=\"nl\">Je kunt met me praten in het Nederlands!</span>",
+            "<span lang=\"pl\">Mo\u{17C}esz m\u{F3}wi\u{107} ze mn\u{105} po polsku!</span>",
         ],
 
         //// source engine
