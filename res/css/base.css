@@ -8,7 +8,7 @@
     --sans-serif-font-family: "Schibsted Grotesk", "Noto Sans", sans-serif;
     --serif-font-family: "Merriweather", serif;
     --monospace-font-family: "IBM Plex Mono", monospace;
-    font-size: clamp(4vmin, 16pt, 36pt);
+    font-size: clamp(4vmin, 20pt, 36pt);
 }
 
 ::selection {
@@ -69,4 +69,8 @@ p + p {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--serif-font-family);
     margin-bottom: 0.25em;
+}
+
+footer {
+    font-size: 0.8em;
 }
