@@ -1,9 +1,5 @@
 @import url("/res/css/base.css");
 
-#container {
-    padding: 2rem;
-}
-
 ul {
     list-style-type: none;
     list-style-position: inside;
