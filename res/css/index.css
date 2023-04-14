@@ -40,7 +40,7 @@
     align-items: center;
     justify-content: center;
     user-select: none;
-    border: 2px;
+    border-width: 2pt;
     border-style: solid;
     border-color: var(--foreground-color);
     border-radius: 100%;
@@ -48,7 +48,6 @@
 }
 
 #quote-changer > .inner {
-    display: block;
     line-height: 0;
 }
 

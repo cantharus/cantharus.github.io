@@ -36,19 +36,14 @@ body {
     justify-content: center;
 }
 
-a.hidden {
+a.secret {
     color: var(--foreground-color);
     text-decoration: none;
 }
 
-a.hidden:hover {
+a.secret:hover {
     color: var(--link-color);
     text-decoration: underline;
-}
-
-a.disabled {
-    color: #999;
-    text-decoration: none;
 }
 
 code {

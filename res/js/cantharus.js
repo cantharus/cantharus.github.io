@@ -1,4 +1,5 @@
 (() => {
+    "use strict";
     // visit count :)
     localStorage.setItem("visitcount", Number(localStorage.getItem("visitcount")) + 1);
     const visitCountRequiredForFunny = 5;
@@ -19,6 +20,18 @@
     }
     cantharus.changeQuote = changeQuote;
     cantharus.refreshQuotePool = refreshQuotePool;
+    
+    // quotes that show on page load go here
+    const pageLoadQuotes = [
+        "Welcome to my humble abode!",
+        "Greetings!",
+        "Hello there!",
+        "Hey, how are you?",
+        "What will you do today?",
+        "So, how are you holding up?",
+        quote_informalGreetings,
+        quote_clock,
+    ];
 
     const informalGreetings = [
         "What\u{2019}s up?",
@@ -30,45 +43,35 @@
         "It\u{2019}s so nice to see you here again!",
         "Welcome back!",
         "Ready for another day?",
-        "Hiiii!"
+        "Hiiii!",
     ];
-    
-    // quotes that show on page load go here
-    const pageLoadQuotes = [
-        "Welcome to my humble abode!",
-        "Greetings!",
-        "Hello there!",
-        "Hey, how are you?",
-        "What will you do today?",
-        "So, how are you holding up?",
-        // informal greetings
-        (el) => {
-            if (getVisitCount() > 3) {
-                el.innerText = sampleArray(informalGreetings);
-            } else {
-                el.innerText = "How are things going for you today?";
-            }
-        },
-        // time of day
-        (el) => {
-            const date = new Date();
-            const hour = date.getHours();
 
-            let text;
-            if (hour < 6) {
-                text = "Hey, shouldn\u{2019}t you be asleep?"
-            } else if (hour < 12) {
-                text = "Good morning!"
-            } else if (hour === 12 && date.getMinutes() === 0 && date.getSeconds() === 0) {
-                text = "Good\u{2026} noon!"
-            } else if (hour < 18) {
-                text = "Good afternoon!"
-            } else {
-                text = "Good evening!"
-            }
-            el.innerText = text;
-        },
-    ];
+    function quote_informalGreetings(el) {
+        if (getVisitCount() > 3) {
+            el.innerText = sampleArray(informalGreetings);
+        } else {
+            el.innerText = "How are things going for you today?";
+        }
+    }
+
+    function quote_clock(el) {
+        const date = new Date();
+        const hour = date.getHours();
+
+        let text;
+        if (hour < 6) {
+            text = "Hey, shouldn\u{2019}t you be asleep?"
+        } else if (hour < 12) {
+            text = "Good morning!"
+        } else if (hour === 12 && date.getMinutes() === 0 && date.getSeconds() === 0) {
+            text = "Good\u{2026} noon!"
+        } else if (hour < 18) {
+            text = "Good afternoon!"
+        } else {
+            text = "Good evening!"
+        }
+        el.innerText = text;
+    }
     
     const numberFormat = new Intl.NumberFormat();
     const repoUrl = "https://github.com/cantharus/cantharus.github.io";
@@ -101,7 +104,7 @@
         "I occasionally dispense unsolicited advice. <small>Deal with it.</small>",
         "It smells like updog in here\u{2026} <small title=\"Nothing much, and you?\" style=\"text-decoration:underline dotted;\">(What\u{2019}s updog?)</small>",
         "Time flies like a banana. Fruit flies like an arrow. <small>\u{2026}Wait, what?</small>",
-        "You wouldn\u{2019}t download a car. <small><a class=\"hidden\" href=\"https://www.turbosquid.com/3d-models/3d-dutch-bicycle-1916069\" target=\"_blank\">But maybe you\u{2019}d download a bike\u{2026}</a></small>",
+        "You wouldn\u{2019}t download a car. <small><a class=\"secret\" href=\"https://www.turbosquid.com/3d-models/3d-dutch-bicycle-1916069\" target=\"_blank\">But maybe you\u{2019}d download a bike\u{2026}</a></small>",
         "&#x0054;&#x0072;&#x0061;&#x006E;&#x0073;&#x0020;&#x0072;&#x0069;&#x0067;&#x0068;&#x0074;&#x0073;&#x0021;&#x0020;&#x1F3F3;&#xFE0F;&#x200D;&#x26A7;&#xFE0F;",
         "Women fear me. Men fear me. Fish fear me. <small>I fear myself.</small>",
         "Don\u{2019}t do evil. Do funny!",
@@ -151,84 +154,142 @@
         ],
 
         //// d&d
-        (el) => {
-            let span1 = document.createElement("span");
-            let span2 = document.createElement("span");
-            span2.style.border = "2px solid var(--fg-color)";
-            span2.style.visibility = "hidden";
-            span2.style.borderRadius = "0.5em";
-            span2.style.padding = "0.2em";
-            span2.style.fontSize = "0.7em";
-            span2.style.fontFamily = "var(--font-family)";
-            let a = document.createElement("a");
-            a.innerText = "Roll for initiative! ";
-            let rolled;
-            a.addEventListener("click", (ev) => {
-                if (!rolled) {
-                    rolled = true;
-                    a.classList.add("disabled");
-                    a.style.userSelect = "none";
-                    const roll = rand(20) + 1;
-                    span2.innerText = roll.toString();
-                    span2.style.visibility = "initial";
-                    if (roll === 20) {
-                        span2.style.color = "#5c5";
-                    } else if (roll === 1) {
-                        span2.style.color = "#c55";
-                    }
-                }
-                ev.preventDefault();
-            });
-            span1.appendChild(a);
-            el.appendChild(span1);
-            el.appendChild(span2);
-        },
+        quote_rollForInitiative,
 
         //// other games
-        "Thank you Mario! <a class=\"hidden\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
+        "Thank you Mario! <a class=\"secret\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
 
         //// meta
-        // quote counter
-        (el) => {
-            let count = 0;
-            for (const quote of cantharus.quotes.concat(pageLoadQuotes)) {
-                if (Array.isArray(quote))
-                {
-                    count += quote.length;
-                } else {
-                    count++;
-                }
-            }
-
-            let text;
-            if (count === 0) {
-                text = "Logic bomb!";
-            } else if (count == 1) {
-                text = "So, I was going to give you a fun fact about how many quotes there are, but apparently this is the only quote\u{2026}"
-            } else {
-                text = `Fun fact: there are ${numberFormat.format(count)} quotes for you to find!`;
-                if (count < 10) {
-                    text = text.concat(" <small>Well, that\u{2019}s not that many\u{2026}</small>");
-                }
-            }
-            el.innerHTML = text;
-        },
-        // chance
-        (el) => {
-            const count = cantharus.quotes.length;
-            let text;
-            if (count < 2 || getVisitCount() < visitCountRequiredForFunny) {
-                text = "Nothing to see here, move along\u{2026}";
-            } else {
-                const chance = (chanceForFunny * 100 / count).toPrecision(3).replace(/(?<!0)0+$/, "");
-                text = `Fun fact: there is a ${chance}% chance of getting this quote as your first one.`;
-                if (!lastQuote) {
-                    text = text.concat(" <small>Looks like RNG is in your favour today!</small>");
-                }
-            }
-            el.innerHTML = text;
-        }
+        quote_quoteCounter,
+        quote_rng,
     ];
+
+    function quote_rollForInitiative(el) {
+        // create virtual parent
+        const parent = document.createElement("div");
+        // this is such a dirty hack
+        {
+            const parentStyle = document.createElement("style");
+            parentStyle.appendChild(document.createTextNode("a.stop-it, a.stop-it:hover { color: #999; text-decoration: none; }"));
+            parent.appendChild(parentStyle);
+        }
+
+        // create link
+        const link = document.createElement("a");
+        link.appendChild(document.createTextNode("Roll for initiative!"));
+        link.classList.add("secret");
+        link.style.fontStyle = "italic";
+        link.style.cursor = "pointer";
+        parent.appendChild(link);
+
+        link.addEventListener("click", handleRollClick);
+
+        el.appendChild(parent);
+
+        function handleRollClick(ev) {
+            // make sure you can't click it twice
+            ev.preventDefault();
+            link.removeEventListener("click", handleRollClick);
+            link.classList.add("stop-it");
+            link.style.cursor = "not-allowed";
+
+            const anim = link.animate([{opacity: "initial"}, {opacity: "0"}], 500);
+            anim.addEventListener("finish", (_) => {
+                if (!link.parentElement) {
+                    return;
+                }
+                link.remove();
+
+                // create roll
+                const roll = rand(20) + 1;
+                let rollColor;
+                switch (roll) {
+                    case 20:
+                        rollColor = "#4c4";
+                        break;
+                    case 1:
+                        rollColor = "#c44";
+                        break;
+                    default:
+                        rollColor = "var(--foreground-color)";
+                        break;
+                }
+
+                const rollOuter = document.createElement("div");
+                rollOuter.style.display = "flex";
+                rollOuter.style.width = rollOuter.style.height = "1.5em";
+                rollOuter.style.alignItems = "center";
+                rollOuter.style.justifyContent = "center";
+                rollOuter.style.fontFamily = "var(--sans-serif-font-family)";
+                rollOuter.style.fontSize = "0.8rem";
+                rollOuter.style.borderWidth = "2pt";
+                rollOuter.style.borderStyle = "solid";
+                rollOuter.style.borderColor = rollColor;
+                rollOuter.style.borderRadius = "10%";
+                
+                const rollInner = document.createElement("div");
+                rollInner.appendChild(document.createTextNode(roll.toString()));
+                rollInner.style.color = rollColor;
+                rollInner.style.lineHeight = "0";
+                
+                rollOuter.appendChild(rollInner);
+                parent.appendChild(rollOuter);
+
+                rollOuter.animate([{opacity: "0"}, {opacity: "initial"}], 500);
+            });
+        }
+    }
+
+    function quote_quoteCounter(el) {
+        const count = countQuotes();
+        let text;
+        if (count === 0) {
+            text = "Logic bomb!";
+        } else if (count == 1) {
+            text = "So, I was going to give you a fun fact about how many quotes there are, but apparently this is the only quote\u{2026}"
+        } else {
+            text = `Fun fact: there are ${numberFormat.format(count)} quotes for you to find!`;
+            if (count < 10) {
+                text = text.concat(" <small>Well, that\u{2019}s not that many\u{2026}</small>");
+            }
+        }
+        el.innerHTML = text;
+    }
+
+    function quote_rng(el) {
+        const count = cantharus.quotes.length;
+        let text;
+        if (count < 2 || getVisitCount() < visitCountRequiredForFunny) {
+            text = "Nothing to see here, move along\u{2026}";
+        } else {
+            const chance = (chanceForFunny * 100 / count).toPrecision(3).replace(/(?<!0)0+$/, "");
+            text = `Fun fact: there is a ${chance}% chance of getting this quote as your first one.`;
+            if (!lastQuote) {
+                text = text.concat(" <small>Looks like RNG is in your favour today!</small>");
+            }
+        }
+        el.innerHTML = text;
+    }
+
+    
+    function countQuotes() {
+        let count = 0;
+        for (const quote of cantharus.quotes.concat(pageLoadQuotes)) {
+            if (Array.isArray(quote))
+            {
+                count += quote.length;
+            } else if (quote === quote_informalGreetings) {
+                count += informalGreetings.length;
+            } else if (quote === quote_clock) {
+                count += 5;
+            } else if (quote === quote_rng) {
+                count += 2;
+            } else {
+                count++;
+            }
+        }
+        return count;
+    }
 
     //// CONTRIBUTED QUOTES
     // put your username after four slashes to create your section
@@ -243,19 +304,19 @@
     let quotePool = [];
     let lastQuote;
 
-    document.addEventListener("DOMContentLoaded", (ev) => {
+    document.addEventListener("DOMContentLoaded", (_) => {
         // TODO: remove when portfolio is made
         const portfolioLink = document.getElementById("link-portfolio");
         if (portfolioLink !== undefined) portfolioLink.addEventListener("click", (ev) => {
-            alert("no portfolio yet... sorry...");
             ev.preventDefault();
+            alert("no portfolio yet... sorry...");
         });
     
         // TODO: remove when games page is made
         const gamesLink = document.getElementById("link-games");
         if (gamesLink !== undefined) gamesLink.addEventListener("click", (ev) => {
-            alert("no games yet... sorry...");
             ev.preventDefault();
+            alert("no games yet... sorry...");
         });
 
         const quoteElement = document.getElementById("quote");
@@ -275,8 +336,8 @@
     
         // change the quote when the "new quote" button is clicked
         quoteChangerAnchor.addEventListener("click", (ev) => {
-            changeQuote();
             ev.preventDefault();
+            changeQuote();
         });
 
         // set up page load quote
