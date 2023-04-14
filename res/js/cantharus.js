@@ -269,8 +269,9 @@
             console.error("hey... i kinda need the #quote-changer-anchor element to work properly...");
             return;
         }
-        // add text to the quote changer
-        quoteChangerAnchor.innerText = "\u{2026}";
+
+        // show the quote changer
+        quoteChangerAnchor.classList.remove("hidden");
     
         // change the quote when the "new quote" button is clicked
         quoteChangerAnchor.addEventListener("click", (ev) => {
