@@ -1,23 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+@import url("/res/css/font.css");
 
 :root {
-    --bg-color: #445469;
-    --code-bg-color: #383d43;
-    --fg-color: #eee;
-    --a-color: #ffb43b;
-    --font-family: 'Schibsted Grotesk', 'Noto Sans', sans-serif;
-    --quote-font-family: 'Merriweather', serif;
+    --background-color: #445469;
+    --foreground-color: #eee;
+    --link-color: #ffb43b;
+    --selection-color: rgba(200, 255, 255, 0.3);
+    --sans-serif-font-family: "Schibsted Grotesk", "Noto Sans", sans-serif;
+    --serif-font-family: "Merriweather", serif;
+    --monospace-font-family: "IBM Plex Mono", monospace;
     font-size: clamp(4vmin, 16pt, 36pt);
 }
 
 ::selection {
-    background-color: rgba(200, 255, 255, 0.3);
+    background-color: var(--selection-color);
 }
 
 a, a:visited {
-    color: var(--a-color);
+    color: var(--link-color);
     text-decoration: none;
 }
 
@@ -26,24 +25,24 @@ a:hover {
 }
 
 body {
-    color: var(--fg-color);
+    color: var(--foreground-color);
     display: flex;
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
+    background-color: var(--background-color);
+    font-family: var(--sans-serif-font-family);
     align-items: center;
     justify-content: center;
 }
 
 a.hidden {
-    color: var(--fg-color);
+    color: var(--foreground-color);
     text-decoration: none;
 }
 
 a.hidden:hover {
-    color: var(--a-color);
+    color: var(--link-color);
     text-decoration: underline;
 }
 
@@ -53,11 +52,11 @@ a.disabled {
 }
 
 code {
-    background-color: var(--code-bg-color);
+    background-color: #383d43;
     font-size: 0.8em;
     line-height: 1.75em;
     padding: 0.25em;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: var(--monospace-font-family);
 }
 
 small {
@@ -70,4 +69,8 @@ p {
 
 p + p {
     margin-top: 0.5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--serif-font-family);
 }

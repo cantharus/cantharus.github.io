@@ -1,0 +1,99 @@
+@font-face {
+    font-family: "Merriweather";
+    src: local("Merriweather Regular"), local("Merriweather-Regular"),
+        url("/res/font/Merriweather-Regular.woff2") format("woff2"),
+        url("/res/font/Merriweather-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Merriweather";
+    src: local("Merriweather Italic"), local("Merriweather-Italic"),
+        url("/res/font/Merriweather-Italic.woff2") format("woff2"),
+        url("/res/font/Merriweather-Italic.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Merriweather";
+    src: local("Merriweather Bold"), local("Merriweather-Bold"),
+        url("/res/font/Merriweather-Bold.woff2") format("woff2"),
+        url("/res/font/Merriweather-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Merriweather";
+    src: local("Merriweather Bold Italic"), local("Merriweather-BoldItalic"),
+        url("/res/font/Merriweather-BoldItalic.woff2") format("woff2"),
+        url("/res/font/Merriweather-BoldItalic.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Schibsted Grotesk";
+    src: local("Schibsted Grotesk Regular"), local("SchibstedGrotesk-Regular"),
+        url("/res/font/SchibstedGrotesk-Regular.woff2") format("woff2"),
+        url("/res/font/SchibstedGrotesk-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Schibsted Grotesk";
+    src: local("Schibsted Grotesk Italic"), local("SchibstedGrotesk-Italic"),
+        url("/res/font/SchibstedGrotesk-Italic.woff2") format("woff2"),
+        url("/res/font/SchibstedGrotesk-Italic.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Schibsted Grotesk";
+    src: local("Schibsted Grotesk Bold"), local("SchibstedGrotesk-Bold"),
+        url("/res/font/SchibstedGrotesk-Bold.woff2") format("woff2"),
+        url("/res/font/SchibstedGrotesk-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Schibsted Grotesk";
+    src: local("Schibsted Grotesk Bold Italic"), local("SchibstedGrotesk-BoldItalic"),
+        url("/res/font/SchibstedGrotesk-BoldItalic.woff2") format("woff2"),
+        url("/res/font/SchibstedGrotesk-BoldItalic.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: local("IBM Plex Mono Regular"), local("IBMPlexMono-Regular"),
+        url("/res/font/IBMPlexMono-Regular.woff2") format("woff2"),
+        url("/res/font/IBMPlexMono-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "IBM Plex Mono";
+    src: local("IBM Plex Mono Bold"), local("IBMPlexMono-Bold"),
+        url("/res/font/IBMPlexMono-Bold.woff2") format("woff2"),
+        url("/res/font/IBMPlexMono-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
