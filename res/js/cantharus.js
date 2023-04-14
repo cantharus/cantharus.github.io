@@ -305,20 +305,6 @@
     let lastQuote;
 
     document.addEventListener("DOMContentLoaded", (_) => {
-        // TODO: remove when portfolio is made
-        const portfolioLink = document.getElementById("link-portfolio");
-        if (portfolioLink !== undefined) portfolioLink.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            alert("no portfolio yet... sorry...");
-        });
-    
-        // TODO: remove when games page is made
-        const gamesLink = document.getElementById("link-games");
-        if (gamesLink !== undefined) gamesLink.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            alert("no games yet... sorry...");
-        });
-
         const quoteElement = document.getElementById("quote");
         if (!quoteElement) {
             console.error("hey... i kinda need the #quote element to work properly...");
