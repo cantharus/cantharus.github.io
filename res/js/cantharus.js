@@ -146,8 +146,8 @@
 
         //// ace attorney
         [
-            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a class=\"hidden\" href=\"https://www.ace-attorney.com/trilogy\" target=\"_blank\">You should try <em>Phoenix Wright: Ace Attorney Trilogy</em>!</a></p>",
-            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a class=\"hidden\" href=\"https://www.ace-attorney.com/great1-2\" target=\"_blank\">You should try <em>the Great Ace Attorney Chronicles</em>!</a></p>",
+            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a href=\"https://www.ace-attorney.com/trilogy\" target=\"_blank\">You should try <em>Phoenix Wright: Ace Attorney Trilogy</em>!</a></p>",
+            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a href=\"https://www.ace-attorney.com/great1-2\" target=\"_blank\">You should try <em>the Great Ace Attorney Chronicles</em>!</a></p>",
         ],
 
         //// d&d
