@@ -1,1 +1,3 @@
-.vscode/*
+.vscode
+_site
+.jekyll-cache
