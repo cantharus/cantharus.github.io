@@ -187,7 +187,7 @@
         "Is it a ladder? Is it a stepladder? No, it\u{2019}s a personal ascension implement!",
         "<em>Zvarri!</em> <small>Hmm\u{2026} I\u{2019}m not feeling it.</small>",
         "Ooh, I could <em>kill</em> for some Snackoos right now\u{2026}",
-        "I am a cat. As of yet I have no name. <small>You think I\u{2019}d call myself <em>\u{201C}Wagahai\u{201D}</em>? Don\{2019}t be ridiculous.</small>",
+        "I am a cat. As of yet I have no name. <small>You think I\u{2019}d call myself <em>\u{201C}Wagahai\u{201D}</em>? Don\u{2019}t be ridiculous.</small>",
         `<span lang="de" style="font-style:italic;">Auf geht\u{2019}s!</span> Let\u{2019}s do this!`,
 
         //// d&d
