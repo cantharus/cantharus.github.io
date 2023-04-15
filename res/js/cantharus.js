@@ -114,17 +114,28 @@
         "Have you ever tried landscape painting?",
         "Why do I hear boss music? <small>Please help\u{2026}</small>",
         "Check the links below if you haven\u{2019}t already!",
-        "<em>YUMP!</em>",
         "It\u{2019}s your time to shine!",
         "Best of luck in your endeavours future and present!",
         "Statistically speaking, I don\u{2019}t exist.",
         "Fish.",
-        "Heh, it says \u{201C}<span style=\"font-variant-caps:small-caps;\">GULLIBLE</span>\u{201D} on the ceiling.",
+        "Heh, it says \u{201C}<span style=\"font-variant:small-caps;font-synthesis:small-caps;text-transform:uppercase;\">GULLIBLE</span>\u{201D} on the ceiling.",
         "So long, and thanks for all the fish.",
         "What would you do with \u{A3}1,000,000? <small>Personally, I would buy lots of weird computers.</small>",
         [
-            "Bazinga. \u{1F4A5}",
+            "Bazinga! \u{1F4A5}",
             "Bazingain\u{2019}t. \u{274C}"
+        ],
+        [
+            "Dogs. \u{1F415}\u{FE0F}",
+            "Cats. \u{1F408}\u{FE0F}",
+            "Bunnies. \u{1F407}",
+            "Birds. \u{1F426}\u{FE0F}",
+            "Lions. \u{1F981}",
+            "Tigers. \u{1F405}",
+            "Cows. \u{1F404}",
+            "Sheep. \u{1F411}",
+            "Goats. \u{1F410}",
+            "Worms. \u{1FAB1}",
         ],
         [
             "You\u{2019}re telling me a fry riced this shrimp? <small>Wait\u{2026}</small>",
@@ -172,18 +183,18 @@
         quote_rollForInitiative,
 
         //// other games
-        "Thank you Mario! <a class=\"secret\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
+        "Thank you, Mario! <a class=\"secret\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
         "Stout Shako for 6 refined! <small>(Blame inflation for that one.)</small>",
-        "\u{26A0} Something is creating script errors",
-        "Would you kindly click the \"change the quote\" button?",
-        "I used to be an adventurer like you, until the guild struck my name out for accusations of fraud. <small>I didn\u{2019}t do anything wrong, I swear!</small>",
-        "Wake up and smell the ashes.",
-        "About that beer I owed ya\u{2026} <small>Oops, I drank it\u{2026}</small>",
+        "\u{26A0}\u{FE0F} Something is creating script errors",
+        "Would you kindly click the &ldquo;change the quote&rsquo; button?",
+        "I used to be an adventurer like you, until the guild struck my name out due to accusations of fraud. <small>I didn\u{2019}t do anything wrong, I swear!</small>",
+        "Wake up and\u{2026} <em>smell</em> the ashes.",
+        "Now, about that beer I owed ya\u{2026} <small>Oops, I drank it\u{2026} Sorry, Gordon.</small>",
         "Tell me. For whom do you fight? <small>\u{2026}Hmph. How very\u{2026} respectable.</small>",
         "Gotta go fast!",
 
         //// programming
-        "<code>while (true)</code>? Give me a <code>break<code>\u{2026}",
+        "<code>while (true)</code>? Give me a <code>break</code>\u{2026}",
         "99 bottles of grape juice on the wall, 99 bottles of grape juice. <small>A Prohibitionist wrote this one.</small>",
 
         //// meta
