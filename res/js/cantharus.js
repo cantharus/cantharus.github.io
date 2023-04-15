@@ -413,7 +413,7 @@
     }
 
     function quote_mathRandom(el) {
-        el.innerText = `Me when I call <code>Math.random</code>: <code>${Math.random()}</code>`;
+        el.innerHTML = `Me when I call <code>Math.random</code>: <code>${Math.random()}</code>`;
     }
 
     function quote_quoteCounter(el) {
