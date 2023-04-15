@@ -93,13 +93,12 @@
         "Treasure what you have now. You\u{2019}ll never know when you\u{2019}ll miss it.",
         "Speak freely with me!",
         "There are so many things to do on the computer!",
-        "Slow day, huh?",
-        `Please don\u{2019}t look at the <a href=\"${repoUrl}\" target=\"_blank\">source code</a>, it sucks\u{2026}`,
+        "My favourite drink is peach iced tea.",
         `Want to add a quote here? <a href=\"${prUrl}\" target=\"_blank\">Submit a pull request!</a>`,
         "I have 99 problems. <small>Actually, I have way more than that!</small>",
         "Some things just take getting used to. You\u{2019}ll get there eventually.",
         "Quote <span style=\"font-style:italic;text-decoration:underline;\">all</span> the things!",
-        "Awesomesauce!",
+        "<em>Awesomesauce!</em>",
         "Put a smile into your works!",
         "I occasionally dispense unsolicited advice. <small>Deal with it.</small>",
         "It smells like updog in here\u{2026} <small title=\"Nothing much, and you?\" style=\"text-decoration:underline dotted;\">(What\u{2019}s updog?)</small>",
@@ -117,6 +116,12 @@
         "Check the links below if you haven\u{2019}t already!",
         "<em>YUMP!</em>",
         "It\u{2019}s your time to shine!",
+        "Best of luck in your endeavours future and present!",
+        "Statistically speaking, I don\u{2019}t exist.",
+        "Fish.",
+        "Heh, it says \u{201C}<span style=\"font-variant-caps:small-caps;\">GULLIBLE</span>\u{201D} on the ceiling.",
+        "So long, and thanks for all the fish.",
+        "What would you do with \u{A3}1,000,000? <small>Personally, I would buy lots of weird computers.</small>",
         [
             "Bazinga. \u{1F4A5}",
             "Bazingain\u{2019}t. \u{274C}"
@@ -139,13 +144,23 @@
         // partial contribution by zydras
         [
             "<code>] sv_cheats 1</code>",
-            "<code>] sv_cheats 0</code>"
+            "<code>] sv_cheats 0</code>",
+            "<code>] cl_showpos 1</code>",
+            "<a class=\"secret\" href=\"#\" onclick=\"window.history.go();\"><code>] retry</code></a>",
+            "<code>] net_graph 1</code>",
+            "<code>] mat_wireframe 1</code>",
+            "<code>] god</code>",
+            "<code>] noclip</code>",
+            "<code>] disconnect</code>",
         ],
         
         //// corru.observer
-        "Psst! Check this out: <a href=\"https://corru.observer\" target=\"_blank\">a whole game you can play in your browser!</a>",
+        quote_cobMoth,
         "<code>INHERITED CONTEXT::'a wonderful page of secret and mystery'</code>",
-        "<code>NOTICE::'memory stream terminated'</code>",
+        [
+            "<code>NOTICE::'memory stream located'</code>",
+            "<code>NOTICE::'memory stream terminated'</code>",
+        ],
 
         //// ace attorney
         [
@@ -158,6 +173,18 @@
 
         //// other games
         "Thank you Mario! <a class=\"secret\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
+        "Stout Shako for 6 refined! <small>(Blame inflation for that one.)</small>",
+        "\u{26A0} Something is creating script errors",
+        "Would you kindly click the \"change the quote\" button?",
+        "I used to be an adventurer like you, until the guild struck my name out for accusations of fraud. <small>I didn\u{2019}t do anything wrong, I swear!</small>",
+        "Wake up and smell the ashes.",
+        "About that beer I owed ya\u{2026} <small>Oops, I drank it\u{2026}</small>",
+        "Tell me. For whom do you fight? <small>\u{2026}Hmph. How very\u{2026} respectable.</small>",
+        "Gotta go fast!",
+
+        //// programming
+        "<code>while (true)</code>? Give me a <code>break<code>\u{2026}",
+        "99 bottles of grape juice on the wall, 99 bottles of grape juice. <small>A Prohibitionist wrote this one.</small>",
 
         //// meta
         quote_quoteCounter,
@@ -240,6 +267,127 @@
         }
     }
 
+    // stylesheets adapted from the source: https://corru.observer/css/corru.css
+    function quote_cobMoth(el) {
+        const fonts = document.createElement("style");
+        fonts.appendChild(document.createTextNode(`
+        @font-face {
+            font-family: 'corru-barcodetext';
+            src: url('https://corru.observer/fonts/LibreBarcode128Text-Regular.woff2') format('woff2'),
+                url('https://corru.observer/fonts/LibreBarcode128Text-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'corru-spacemono';
+            src: url('https://corru.observer/fonts/SpaceMono-Regular.woff2') format('woff2'),
+                url('https://corru.observer/fonts/SpaceMono-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'corru-spacemono';
+            src: url('https://corru.observer/fonts/SpaceMono-Bold.woff2') format('woff2'),
+                url('https://corru.observer/fonts/SpaceMono-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }`));
+        el.appendChild(fonts);
+        const shadow = el.attachShadow({ mode: "open" });
+
+        const style = document.createElement("style");
+        style.appendChild(document.createTextNode(`
+        * {box-sizing: border-box}
+        a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}body{line-height:1;}ol,ul{list-style:none;}blockquote,q{quotes:none;}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none;}table{border-collapse:collapse;border-spacing:0;}  
+        ::selection {
+            background-color: transparent;
+            color: inherit;
+        }
+        a, a:hover {
+            text-decoration: none;
+        }
+        .corru-root { 
+            --dark-color: black;
+            --friend-color: #00ffff;
+            --rem: 16px;
+            width: 384px;
+            padding: 15vh calc(0.5 * var(--rem)) 0;
+            font-family: corru-spacemono;
+            font-size: 12px;
+            image-rendering: pixelated;
+            text-align: left;
+            user-select: none;
+        }
+        .corru-root .message {
+            overflow: hidden;
+            background: var(--dark-color);
+            border: 1px solid;
+            border-color: inherit;
+            padding: calc(0.75 * var(--rem)) calc(0.5 * var(--rem));
+            margin-bottom: calc(0.75 * var(--rem));
+            line-height: 1.25em;
+            border-color: var(--friend-color);
+            color: var(--friend-color);
+        }
+        .corru-root .message p {
+            width: 100%;
+        }
+        .corru-root .message h2 {
+            font-size: 2.5em;
+            line-height: 1em;
+            margin-bottom: calc(0.3 * var(--rem));
+            border-bottom: 1px solid;
+            padding-bottom: 0.15em;
+            width: 102%;    
+            font-family: corru-barcodetext;
+            text-transform: uppercase;
+            white-space: nowrap;
+            letter-spacing: normal !important;
+        }
+        .corru-root .message img {
+            float: left;
+            width: calc(3.5 * var(--rem));
+            height: calc(3.5 * var(--rem));
+            margin-right: calc(0.5 * var(--rem));
+            border: 1px solid;
+            border-color: inherit;
+            background-color: black;
+            object-fit: none;
+        }
+        `));
+        shadow.appendChild(style);
+
+        const link = document.createElement("a");
+        link.href = "https://corru.observer/";
+        link.target = "_blank";
+        link.title = "click here to play corru.observer";
+        shadow.appendChild(link);
+
+        const corruRoot = document.createElement("div");
+        corruRoot.classList.add("corru-root");
+        link.appendChild(corruRoot);
+
+        const corruMessage = document.createElement("div");
+        corruMessage.classList.add("message");
+        corruRoot.appendChild(corruMessage);
+
+        const messageImg = document.createElement("img");
+        messageImg.setAttribute("src", "https://corru.observer/img/blank.gif");
+        messageImg.setAttribute("style", "background:url(https://corru.observer/img/sprites/moth/mothman.gif) white;background-size:165%;background-position:center top;");
+        corruMessage.appendChild(messageImg);
+
+        const messageH2 = document.createElement("h2");
+        messageH2.appendChild(document.createTextNode("!!__moth__!!"));
+        corruMessage.appendChild(messageH2);
+
+        const messageP = document.createElement("p");
+        messageP.appendChild(document.createTextNode("hey buddy, wanna play a game?"));
+        corruMessage.appendChild(messageP);
+    }
+
     function quote_quoteCounter(el) {
         const count = countQuotes();
         let text;
@@ -271,7 +419,6 @@
         el.innerHTML = text;
     }
 
-    
     function countQuotes() {
         let count = 0;
         for (const quote of cantharus.quotes.concat(pageLoadQuotes)) {
