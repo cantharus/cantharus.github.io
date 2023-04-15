@@ -20,6 +20,8 @@
     }
     cantharus.changeQuote = changeQuote;
     cantharus.refreshQuotePool = refreshQuotePool;
+
+    cantharus.getVisitCount = getVisitCount;
     
     // quotes that show on page load go here
     const pageLoadQuotes = [
@@ -97,13 +99,13 @@
         `Want to add a quote here? <a href=\"${prUrl}\" target=\"_blank\">Submit a pull request!</a>`,
         "I have 99 problems. <small>Actually, I have way more than that!</small>",
         "Some things just take getting used to. You\u{2019}ll get there eventually.",
-        "Quote <span style=\"font-style:italic;text-decoration:underline;\">all</span> the things!",
+        `Quote <span style="font-style:italic;text-decoration:underline;">all</span> the things!`,
         "<em>Awesomesauce!</em>",
         "Put a smile into your works!",
         "I occasionally dispense unsolicited advice. <small>Deal with it.</small>",
-        "It smells like updog in here\u{2026} <small title=\"Nothing much, and you?\" style=\"text-decoration:underline dotted;\">(What\u{2019}s updog?)</small>",
+        `It smells like updog in here\u{2026} <small title="Nothing much, and you?" style="text-decoration:underline dotted;">(What\u{2019}s updog?)</small>`,
         "Time flies like a banana. Fruit flies like an arrow. <small>\u{2026}Wait, what?</small>",
-        "You wouldn\u{2019}t download a car. <small><a class=\"secret\" href=\"https://www.turbosquid.com/3d-models/3d-dutch-bicycle-1916069\" target=\"_blank\">But maybe you\u{2019}d download a bike\u{2026}</a></small>",
+        `You wouldn\u{2019}t download a car. <small><a class="secret" href="https://www.turbosquid.com/3d-models/3d-dutch-bicycle-1916069" target="_blank">But maybe you\u{2019}d download a bike\u{2026}</a></small>`,
         "&#x0054;&#x0072;&#x0061;&#x006E;&#x0073;&#x0020;&#x0072;&#x0069;&#x0067;&#x0068;&#x0074;&#x0073;&#x0021;&#x0020;&#x1F3F3;&#xFE0F;&#x200D;&#x26A7;&#xFE0F;",
         "Women fear me. Men fear me. Fish fear me. <small>I fear myself.</small>",
         "Don\u{2019}t do evil. Do funny!",
@@ -117,8 +119,7 @@
         "It\u{2019}s your time to shine!",
         "Best of luck in your endeavours future and present!",
         "Statistically speaking, I don\u{2019}t exist.",
-        "Fish.",
-        "Heh, it says \u{201C}<span style=\"font-variant:small-caps;font-synthesis:small-caps;text-transform:uppercase;\">GULLIBLE</span>\u{201D} on the ceiling.",
+        `Heh, it says \u{201C}<span style="font-size:0.8rem;text-transform:uppercase;">gullible</span>\u{201D} on the ceiling.`,
         "So long, and thanks for all the fish.",
         "What would you do with \u{A3}1,000,000? <small>Personally, I would buy lots of weird computers.</small>",
         [
@@ -145,10 +146,10 @@
             "You\u{2019}re telling me a fry shrimped this rice? <small>Wait\u{2026}</small>",
         ],
         [
-            "<span lang=\"pt-PT\">Podes falar comigo em portugu\u{EA}s!</span>",
-            "<span lang=\"es-ES\">\u{A1}Puedes hablar conmigo en castellano!</span>",
-            "<span lang=\"nl\">Je kunt met me praten in het Nederlands!</span>",
-            "<span lang=\"pl\">Mo\u{17C}esz ze mn\u{105} m\u{F3}wi\u{107} po polsku!</span>",
+            `<span lang="pt-PT">Podes falar comigo em portugu\u{EA}s!</span>`,
+            `<span lang="es-ES">\u{A1}Puedes hablar conmigo en castellano!</span>`,
+            `<span lang="nl">Je kunt met me praten in het Nederlands!</span>`,
+            `<span lang="pl">Mo\u{17C}esz ze mn\u{105} m\u{F3}wi\u{107} po polsku!</span>`,
         ],
 
         //// source engine
@@ -157,7 +158,7 @@
             "<code>] sv_cheats 1</code>",
             "<code>] sv_cheats 0</code>",
             "<code>] cl_showpos 1</code>",
-            "<a class=\"secret\" href=\"#\" onclick=\"window.history.go();\"><code>] retry</code></a>",
+            `<a class="secret" href="#" onclick="window.history.go();"><code>] retry</code></a>`,
             "<code>] net_graph 1</code>",
             "<code>] mat_wireframe 1</code>",
             "<code>] god</code>",
@@ -167,26 +168,36 @@
         
         //// corru.observer
         quote_cobMoth,
-        "<code>INHERITED CONTEXT::'a wonderful page of secret and mystery'</code>",
         [
+            "<code>EXPLICIT PURPOSE::'to show you what i am making'</code>",
+            "<code>INHERITED CONTEXT::'a wonderful page of secret and mystery'</code>",
+            "<code>INHERITED CONTEXT::'the fruit of my labour'</code>",
+            "<code>INHERITED CONTEXT::'so old memes';'many quotes';'such wow'</code>",
+            "<code>NOTICE::'use links below to gather more information';'monitor periodically for updates'",
             "<code>NOTICE::'memory stream located'</code>",
             "<code>NOTICE::'memory stream terminated'</code>",
         ],
 
         //// ace attorney
         [
-            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a href=\"https://www.ace-attorney.com/trilogy\" target=\"_blank\">You should try <em>Phoenix Wright: Ace Attorney Trilogy</em>!</a></p>",
-            "<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style=\"font-weight:bold;font-style:italic;\">Hold it!</span> <a href=\"https://www.ace-attorney.com/great1-2\" target=\"_blank\">You should try <em>the Great Ace Attorney Chronicles</em>!</a></p>",
+            `<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style="font-weight:bold;font-style:italic;">Hold it!</span> <a href="https://www.ace-attorney.com/trilogy" target="_blank">You should try <em>Phoenix Wright: Ace Attorney Trilogy</em>!</a></p>`,
+            `<p>Haven\u{2019}t played a Phoenix Wright game yet?</p><p><span style="font-weight:bold;font-style:italic;">Hold it!</span> <a href="https://www.ace-attorney.com/great1-2" target="_blank">You should try <em>the Great Ace Attorney Chronicles</em>!</a></p>`,
         ],
+        `<span style="font-weight:bold;font-style:italic;">Objection!</span> I object! That was\u{2026} objectionable.`,
+        "Is it a ladder? Is it a stepladder? No, it\u{2019}s a personal ascension implement!",
+        "<em>Zvarri!</em> <small>Hmm\u{2026} I\u{2019}m not feeling it.</small>",
+        "Ooh, I could <em>kill</em> for some Snackoos right now\u{2026}",
+        "I am a cat. As of yet I have no name. <small>You think I\u{2019}d call myself <em>\u{201C}Wagahai\u{201D}</em>? Don\{2019}t be ridiculous.</small>",
+        `<span lang="de" style="font-style:italic;">Auf geht\u{2019}s!</span> Let\u{2019}s do this!`,
 
         //// d&d
         quote_rollForInitiative,
 
         //// other games
-        "Thank you, Mario! <a class=\"secret\" href=\"https://nightshade.network/\" target=\"_blank\">But our princess is in another castle!</a>",
+        `Thank you, Mario! <a class="secret" href="https://nightshade.network/\ target="_blank">But our princess is in another castle!</a>`,
         "Stout Shako for 6 refined! <small>(Blame inflation for that one.)</small>",
         "\u{26A0}\u{FE0F} Something is creating script errors",
-        "Would you kindly click the &ldquo;change the quote&rsquo; button?",
+        "Would you kindly click the \u{201C}change the quote\u{201D} button?",
         "I used to be an adventurer like you, until the guild struck my name out due to accusations of fraud. <small>I didn\u{2019}t do anything wrong, I swear!</small>",
         "Wake up and\u{2026} <em>smell</em> the ashes.",
         "Now, about that beer I owed ya\u{2026} <small>Oops, I drank it\u{2026} Sorry, Gordon.</small>",
@@ -196,6 +207,7 @@
         //// programming
         "<code>while (true)</code>? Give me a <code>break</code>\u{2026}",
         "99 bottles of grape juice on the wall, 99 bottles of grape juice. <small>A Prohibitionist wrote this one.</small>",
+        quote_mathRandom,
 
         //// meta
         quote_quoteCounter,
@@ -283,30 +295,31 @@
         const fonts = document.createElement("style");
         fonts.appendChild(document.createTextNode(`
         @font-face {
-            font-family: 'corru-barcodetext';
-            src: url('https://corru.observer/fonts/LibreBarcode128Text-Regular.woff2') format('woff2'),
-                url('https://corru.observer/fonts/LibreBarcode128Text-Regular.woff') format('woff');
+            font-family: "corru-barcodetext";
+            src: url("https://corru.observer/fonts/LibreBarcode128Text-Regular.woff2") format("woff2"),
+                url("https://corru.observer/fonts/LibreBarcode128Text-Regular.woff") format("woff");
             font-weight: normal;
             font-style: normal;
-            font-display: swap;
+            font-display: block;
         }
         @font-face {
-            font-family: 'corru-spacemono';
-            src: url('https://corru.observer/fonts/SpaceMono-Regular.woff2') format('woff2'),
-                url('https://corru.observer/fonts/SpaceMono-Regular.woff') format('woff');
+            font-family: "corru-spacemono";
+            src: url("https://corru.observer/fonts/SpaceMono-Regular.woff2") format("woff2"),
+                url("https://corru.observer/fonts/SpaceMono-Regular.woff") format("woff");
             font-weight: normal;
             font-style: normal;
-            font-display: swap;
+            font-display: block;
         }
         @font-face {
-            font-family: 'corru-spacemono';
-            src: url('https://corru.observer/fonts/SpaceMono-Bold.woff2') format('woff2'),
-                url('https://corru.observer/fonts/SpaceMono-Bold.woff') format('woff');
+            font-family: "corru-spacemono";
+            src: url("https://corru.observer/fonts/SpaceMono-Bold.woff2") format("woff2"),
+                url("https://corru.observer/fonts/SpaceMono-Bold.woff") format("woff");
             font-weight: bold;
             font-style: normal;
             font-display: swap;
         }`));
         el.appendChild(fonts);
+
         const shadow = el.attachShadow({ mode: "open" });
 
         const style = document.createElement("style");
@@ -397,6 +410,10 @@
         const messageP = document.createElement("p");
         messageP.appendChild(document.createTextNode("hey buddy, wanna play a game?"));
         corruMessage.appendChild(messageP);
+    }
+
+    function quote_mathRandom(el) {
+        el.innerText = `Me when I call <code>Math.random</code>: <code>${Math.random()}</code>`;
     }
 
     function quote_quoteCounter(el) {
@@ -536,13 +553,14 @@
 
         let newInternal = replaceQuoteInternal(el);
         if (typeof(quote) === "function") {
-            quote(newInternal);
+            return quote(newInternal) !== false;
         } else if (Array.isArray(quote)) {
             quote = sampleArray(quote);
             setQuote(quote);
         } else {
             newInternal.innerHTML = quote;
         }
+        return true;
     }
 
     function changeQuote() {
@@ -561,7 +579,7 @@
             quotePool.push(lastQuote);
         }
         lastQuote = quote;
-        setQuote(quote);
+        if(!setQuote(quote) && quotePool.length > 1) changeQuote();
     }
 
     function refreshQuotePool() {
