@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dither</title>
+</head>
+<body>
+    <form action="">
+        <div>
+            <button type="button" id="load">load</button>
+            <button type="button" id="save">save</button>
+        </div>
+        <div>
+            <button type="button" id="palette-import">import</button>
+            <label for="palette-select">palette: </label>
+            <select name="palette" id="palette-select">
+                <option value="obesk">obesk</option>
+                <option value="bstrd">bstrd</option>
+                <option value="cmyk">cmyk</option>
+                <!-- <option value="custom">custom</option> -->
+            </select>
+        </div>
+    </form>
+    <canvas id="display">
+    </canvas>
+    <script>
+        function die(why) {
+            alert(`page broke, call a doctor: ${why}`);
+            throw why;
+        }
+        
+        const display = document.getElementById("display");
+        if (display === null || display.tagName != "CANVAS") die("#display missing");
+
+        const loadButton = document.getElementById("load");
+        if (loadButton === null) die("#load missing");
+        loadButton.addEventListener("click", loadImage);
+
+        const saveButton = document.getElementById("save");
+        if (saveButton === null) die("#save missing");
+        saveButton.addEventListener("click", saveImage);
+
+        const paletteSelect = document.getElementById("palette-select");
+        if (paletteSelect === null || paletteSelect.tagName != "SELECT") die("#palette-select missing");
+        paletteSelect.addEventListener("change", changePalette);
+        
+        const paletteImport = document.getElementById("palette-import");
+        if (paletteImport === null) die("#palette-import missing");
+        paletteImport.addEventListener("click", () => alert("sorry, this isn't implemented yet"));
+
+        let lastBitmap;
+        function loadImage() {
+            let input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.addEventListener("change", function() {
+                const file = input.files[0];
+                createImageBitmap(file).then((bitmap) => {
+                    lastBitmap = bitmap;
+                    render(bitmap);
+                }).catch((error) => { die(error); });
+            });
+            input.click();
+        }
+
+        function saveImage() {
+            let link = document.createElement("a");
+            link.download = "dither.png";
+            link.href = display.toDataURL();
+            link.click();
+        }
+
+        let currentPalette = "obesk";
+        const palettes = {
+            obesk: [[0, 255, 255], [255, 0, 255], [0, 0, 0], [255, 255, 255]],
+            bstrd: [[255, 0, 102], [255, 255, 0], [0, 0, 0], [255, 255, 255]],
+            cmyk: [[0, 255, 255], [255, 0, 255], [255, 255, 0], [0, 0, 0], [255, 255, 255]],
+            custom: [[255, 255, 255], [0, 0, 0]]
+        };
+
+        function changePalette() {
+            const value = paletteSelect.value;
+
+            switch (value) {
+                case "obesk":
+                case "bstrd":
+                case "cmyk":
+                    currentPalette = value;
+                    break;
+                default:
+                    currentPalette = "custom";
+                    break;
+            }
+
+            render(lastBitmap);
+
+            localStorage.setItem("lastPalette", currentPalette);
+        }
+        
+        function render(bitmap) {
+            const w = bitmap.width;
+            const h = bitmap.height;
+            display.width = w;
+            display.height = h;
+
+            const ctx = display.getContext("2d");
+            ctx.drawImage(bitmap, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, w, h);
+            const data = imageData.data;
+            const palette = palettes[currentPalette];
+            for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                    let index = (x + y * w) * 4;
+                    const colorR = data[index];
+                    const colorG = data[index + 1];
+                    const colorB = data[index + 2];
+
+                    const bestColor = getNearestColor([colorR, colorG, colorB], palette);
+                    const bestColorR = bestColor[0];
+                    const bestColorG = bestColor[1];
+                    const bestColorB = bestColor[2];
+
+                    data[index] = bestColorR;
+                    data[index + 1] = bestColorG;
+                    data[index + 2] = bestColorB;
+
+                    const errorR = colorR - bestColorR;
+                    const errorG = colorG - bestColorG;
+                    const errorB = colorB - bestColorB;
+                    
+                    if (x + 1 < w) {
+                        let newIndex = (x + 1 + y * w) * 4;
+                        data[newIndex] = addByte(data[newIndex], (errorR * 7) >> 4);
+                        newIndex++;
+                        data[newIndex] = addByte(data[newIndex], (errorG * 7) >> 4);
+                        newIndex++;
+                        data[newIndex] = addByte(data[newIndex], (errorB * 7) >> 4);
+                    }
+                    if (y + 1 < h) {
+                        if (x > 0) {{
+                            let newIndex = (x - 1 + (y + 1) * w) * 4;
+                            data[newIndex] = addByte(data[newIndex], (errorR * 3) >> 4);
+                            newIndex++;
+                            data[newIndex] = addByte(data[newIndex], (errorG * 3) >> 4);
+                            newIndex++;
+                            data[newIndex] = addByte(data[newIndex], (errorB * 3) >> 4);
+                        }}
+                        let newIndex = (x + (y + 1) * w) * 4;
+                        data[newIndex] = addByte(data[newIndex], (errorR * 5) >> 4);
+                        newIndex++;
+                        data[newIndex] = addByte(data[newIndex], (errorG * 5) >> 4);
+                        newIndex++;
+                        data[newIndex] = addByte(data[newIndex], (errorB * 5) >> 4);
+                        if (x + 1 < w) {
+                            let newIndex = (x + 1 + (y + 1) * w) * 4;
+                            data[newIndex] = addByte(data[newIndex], errorR >> 4);
+                            newIndex++;
+                            data[newIndex] = addByte(data[newIndex], errorG >> 4);
+                            newIndex++;
+                            data[newIndex] = addByte(data[newIndex], errorB >> 4);
+                        }
+                    }
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        const initialDistanceSqr = 255 * 255 + 255 * 255 + 255 * 255 + 1;
+        function getNearestColor(color, palette) {
+            let minDistanceSqr = initialDistanceSqr;
+            let bestIndex = 0;
+            for (let i = 0; i < palette.length; i++)
+            {
+                const diffR = color[0] - palette[i][0];
+                const diffG = color[1] - palette[i][1];
+                const diffB = color[2] - palette[i][2];
+                const distanceSqr = diffR * diffR + diffG * diffG + diffB * diffB;
+                if (distanceSqr < minDistanceSqr) {
+                    minDistanceSqr = distanceSqr;
+                    bestIndex = i;
+                    if (minDistanceSqr < 1) break;
+                }
+            }
+            return palette[bestIndex];
+        }
+
+        function addByte(a, b) {
+            return Math.min(Math.max(a + b, 0), 255);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const lastPalette = localStorage.getItem("lastPalette");
+            if (palettes[lastPalette] !== undefined) {
+                currentPalette = lastPalette;
+                paletteSelect.value = currentPalette;
+            }
+        });
+    </script>
+</body>
+</html>
