@@ -21,6 +21,17 @@
                 <option value="custom">custom</option>
             </select>
         </div>
+        <div>
+            <label for="contrast">contrast: </label>
+            <input type="range" id="contrast" name="contrast" min="-100" max="100" value="0" step="1" list="markers">
+            <datalist id="markers">
+                <option value="-100"></option>
+                <option value="-50"></option>
+                <option value="0"></option>
+                <option value="50"></option>
+                <option value="100"></option>
+            </datalist>
+        </div>
     </form>
     <canvas id="display">
     </canvas>
@@ -48,6 +59,14 @@
         const paletteImport = document.getElementById("palette-import");
         if (paletteImport === null) die("#palette-import missing");
         paletteImport.addEventListener("click", handlePaletteImport);
+
+        let contrast = 0;
+        const contrastSlider = document.getElementById("contrast");
+        if (contrastSlider === null || contrastSlider.tagName != "INPUT") die("#contrast missing");
+        contrastSlider.addEventListener("change", () => {
+            contrast = contrastSlider.value * 2.55;
+            if (lastBitmap) render(lastBitmap);
+        });
 
         let lastBitmap;
         function loadImage() {
@@ -156,12 +175,15 @@
             const imageData = ctx.getImageData(0, 0, w, h);
             const data = imageData.data;
             const palette = palettes[currentPalette];
+
+            const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast))
+
             for (let y = 0; y < h; y++) {
                 for (let x = 0; x < w; x++) {
                     let index = (x + y * w) * 4;
-                    const colorR = data[index];
-                    const colorG = data[index + 1];
-                    const colorB = data[index + 2];
+                    const colorR = addByte(contrastFactor * (data[index] - 128), 128);
+                    const colorG = addByte(contrastFactor * (data[index + 1] - 128), 128);
+                    const colorB = addByte(contrastFactor * (data[index + 2] - 128), 128);
 
                     const bestColor = getNearestColor([colorR, colorG, colorB], palette);
                     const bestColorR = bestColor[0];
