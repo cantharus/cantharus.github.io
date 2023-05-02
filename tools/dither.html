@@ -22,9 +22,30 @@
             </select>
         </div>
         <div>
+            <button type="button" id="resizeopt-toggle">custom size</button>
+            <button type="button" id="resize-reset">reset</button>
+            <span id="resizeopt-scale">
+                <label for="scale">scale: </label>
+                <input type="range" id="scale" name="scale" min="-6" max="2" step="0.125" value="0" list="scale-markers">
+                <datalist id="scale-markers">
+                    <option value="0"></option>
+                </datalist>
+                <input type="number" id="scale-indicator" name="scale-indicator" value="1" style="width:4em;">
+                <label for="scale-indicator">&#x00D7;</label>
+            </span>
+            <span id="resizeopt-custom" style="display:none;">
+                <label for="ratio-toggle">maintain aspect ratio:</label>
+                <input type="checkbox" name="ratio-toggle" id="ratio-toggle" checked>
+                <label for="resize-width">width: </label>
+                <input type="number" min="0" value="1" id="resize-width" name="resize-width">
+                <label for="resize-height">height: </label>
+                <input type="number" min="0" value="1" id="resize-height" name="resize-height">
+            </span>
+        </div>
+        <div>
             <label for="contrast">contrast: </label>
-            <input type="range" id="contrast" name="contrast" min="-100" max="100" value="0" step="1" list="markers">
-            <datalist id="markers">
+            <input type="range" id="contrast" name="contrast" min="-100" max="100" step="1" value="0" list="contrast-markers">
+            <datalist id="contrast-markers">
                 <option value="-100"></option>
                 <option value="-50"></option>
                 <option value="0"></option>
@@ -40,34 +61,14 @@
             alert(`${how}: ${why}`);
             throw why;
         }
+
+        function ensureElement(id, type) {
+            const el = document.getElementById(id);
+            if (el === null || type && el.tagName !== type) die(`#${id} missing`);
+            return el;
+        }
         
-        const display = document.getElementById("display");
-        if (display === null || display.tagName != "CANVAS") die("#display missing");
-
-        const loadButton = document.getElementById("load");
-        if (loadButton === null) die("#load missing");
-        loadButton.addEventListener("click", loadImage);
-
-        const saveButton = document.getElementById("save");
-        if (saveButton === null) die("#save missing");
-        saveButton.addEventListener("click", saveImage);
-
-        const paletteSelect = document.getElementById("palette-select");
-        if (paletteSelect === null || paletteSelect.tagName != "SELECT") die("#palette-select missing");
-        paletteSelect.addEventListener("change", changePalette);
-        
-        const paletteImport = document.getElementById("palette-import");
-        if (paletteImport === null) die("#palette-import missing");
-        paletteImport.addEventListener("click", handlePaletteImport);
-
-        let contrast = 0;
-        const contrastSlider = document.getElementById("contrast");
-        if (contrastSlider === null || contrastSlider.tagName != "INPUT") die("#contrast missing");
-        contrastSlider.addEventListener("change", () => {
-            contrast = contrastSlider.value * 2.55;
-            localStorage.setItem("contrast", contrastSlider.value);
-            if (lastBitmap) render(lastBitmap);
-        });
+        const display = ensureElement("display", "CANVAS");
 
         let lastBitmap;
         function loadImage() {
@@ -78,6 +79,8 @@
                 const file = input.files[0];
                 createImageBitmap(file).then((bitmap) => {
                     lastBitmap = bitmap;
+                    updateWidth(bitmap.width, false);
+                    updateHeight(bitmap.height, false);
                     render(bitmap);
                 }).catch((error) => { die(error, "failed to load the image"); });
             });
@@ -89,6 +92,147 @@
             link.download = "dither.png";
             link.href = display.toDataURL();
             link.click();
+        }
+
+        const loadButton = ensureElement("load");
+        loadButton.addEventListener("click", loadImage);
+
+        const saveButton = ensureElement("save");
+        saveButton.addEventListener("click", saveImage);
+
+        const paletteSelect = ensureElement("palette-select", "SELECT");
+        paletteSelect.addEventListener("change", changePalette);
+        
+        const paletteImport = ensureElement("palette-import");
+        paletteImport.addEventListener("click", handlePaletteImport);
+
+        let resizeCustom = false;
+        const resizeToggle = ensureElement("resizeopt-toggle");
+        const resizeScaleTray = ensureElement("resizeopt-scale");
+        const resizeCustomTray = ensureElement("resizeopt-custom");
+        resizeToggle.addEventListener("click", () => toggleResizeMode());
+
+        let resizeWidth = 1;
+        let resizeHeight = 1;
+        const resizeWidthInput = ensureElement("resize-width", "INPUT");
+        const resizeHeightInput = ensureElement("resize-height", "INPUT");
+        const maintainAspectRatioInput = ensureElement("ratio-toggle", "INPUT");
+        resizeWidthInput.addEventListener("change", () => updateWidth(resizeWidthInput.value, maintainAspectRatioInput.checked));
+        resizeHeightInput.addEventListener("change", () => updateHeight(resizeHeightInput.value, maintainAspectRatioInput.checked));
+
+        let scale = 1;
+        const scaleSlider = ensureElement("scale", "INPUT");
+        const scaleIndicator = ensureElement("scale-indicator");
+        scaleSlider.addEventListener("input", () => updateScaleIndicator(getScale(scaleSlider.value)));
+        scaleSlider.addEventListener("change", () => updateScale(scaleSlider.value));
+        scaleIndicator.addEventListener("change", () => {
+            const value = Math.log2(Math.min(Math.max(Number(scaleIndicator.value), 0.015625), 4));
+            updateScale(value, true);
+         });
+
+        const resizeReset = ensureElement("resize-reset");
+        resizeReset.addEventListener("click", () => {
+            if (lastBitmap) {
+                resizeWidth = lastBitmap.width;
+                resizeHeight = lastBitmap.height;
+                updateResizeInputs();
+            }
+            updateScale(0, true);
+        })
+
+        function getScaledWidth(w) {
+            if (resizeCustom) {
+                return resizeWidth;
+            } else {
+                return ensureSize(w * scale);
+            }
+        }
+
+        function getScaledHeight(h) {
+            if (resizeCustom) {
+                return resizeHeight;
+            } else {
+                return ensureSize(h * scale);
+            }
+        }
+
+        function ensureSize(value) {
+            return Math.max(0, Math.trunc(value));
+        }
+
+        function updateWidth(value, maintainAspectRatio) {
+            const lastWidth = resizeWidth;
+            resizeWidth = ensureSize(value);
+            if (maintainAspectRatio) {
+                resizeHeight = ensureSize(resizeHeight / lastWidth * resizeWidth);
+                if (lastBitmap) {
+                    updateScale(reverseScale(resizeWidth / lastBitmap.width), true, true);
+                }
+            }
+            updateResizeInputs();
+            rerender();
+        }
+
+        function updateHeight(value, maintainAspectRatio) {
+            const lastHeight = resizeHeight;
+            resizeHeight = ensureSize(value);
+            if (maintainAspectRatio) {
+                resizeWidth = ensureSize(resizeWidth / lastHeight * resizeHeight);
+                if (lastBitmap) {
+                    updateScale(reverseScale(resizeHeight / lastBitmap.height), true, true);
+                }
+            }
+            updateResizeInputs();
+            rerender();
+        }
+
+        function updateResizeInputs() {
+            resizeWidthInput.value = resizeWidth;
+            resizeHeightInput.value = resizeHeight;
+        }
+
+        function updateScale(value, visual, norefresh) {
+            scale = getScale(value);
+            if (lastBitmap) {
+                resizeWidth = ensureSize(lastBitmap.width * scale);
+                resizeHeight = ensureSize(lastBitmap.height * scale);
+                updateResizeInputs();
+            }
+            if (visual) {
+                scaleSlider.value = value;
+                updateScaleIndicator(scale);
+            }
+            localStorage.setItem("scale", value);
+            if (!norefresh) rerender();
+        }
+
+        function toggleResizeMode() {{
+            setResizeMode(!resizeCustom);
+        }}
+
+        function setResizeMode(value) {
+            resizeCustom = value;
+            if (value) {
+                resizeToggle.innerText = "scale";
+                resizeCustomTray.style.display = "inline";
+                resizeScaleTray.style.display = "none";
+            } else {
+                resizeToggle.innerText = "custom size";
+                resizeCustomTray.style.display = "none";
+                resizeScaleTray.style.display = "inline";
+            }
+            localStorage.setItem("resizeCustom", resizeCustom);
+        }
+
+        let contrast = 0;
+        const contrastSlider = document.getElementById("contrast");
+        if (contrastSlider === null || contrastSlider.tagName !== "INPUT") die("#contrast missing");
+        contrastSlider.addEventListener("change", () => setContrast(contrastSlider.value));
+
+        function setContrast(value) {
+            contrast = getContrast(value);
+            localStorage.setItem("contrast", value);
+            rerender();
         }
 
         let currentPalette = "obesk";
@@ -113,7 +257,7 @@
                     break;
             }
 
-            if (lastBitmap) render(lastBitmap);
+            rerender();
 
             localStorage.setItem("lastPalette", currentPalette);
         }
@@ -165,13 +309,13 @@
         }
         
         function render(bitmap) {
-            const w = bitmap.width;
-            const h = bitmap.height;
+            const w = getScaledWidth(bitmap.width);
+            const h = getScaledHeight(bitmap.height);
             display.width = w;
             display.height = h;
 
-            const ctx = display.getContext("2d", { willReadFrequently: true });
-            ctx.drawImage(bitmap, 0, 0);
+            const ctx = display.getContext("2d", { antialias: false, willReadFrequently: true });
+            ctx.drawImage(bitmap, 0, 0, w, h);
 
             const imageData = ctx.getImageData(0, 0, w, h);
             const data = imageData.data;
@@ -236,6 +380,10 @@
             ctx.putImageData(imageData, 0, 0);
         }
 
+        function rerender() {
+            if (lastBitmap) render(lastBitmap);
+        }
+
         const initialDistanceSqr = 255 * 255 + 255 * 255 + 255 * 255 + 1;
         function getNearestColor(color, palette) {
             let minDistanceSqr = initialDistanceSqr;
@@ -259,17 +407,41 @@
             return Math.min(Math.max(a + b, 0), 255);
         }
 
+        function getScale(value) {
+            return 2 ** value;
+        }
+
+        function reverseScale(value) {
+            return Math.log2(value);
+        }
+
+        function updateScaleIndicator(value) {
+            scaleIndicator.value = value.toFixed(3).replace(/(\.0+$|(?<=\.\d+)0+$)/, "");
+        }
+
+        function getContrast(value) {
+            return value * 2.55;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const lastPalette = localStorage.getItem("lastPalette");
             if (palettes[lastPalette] !== undefined) {
                 currentPalette = lastPalette;
                 paletteSelect.value = currentPalette;
             }
+            const lastScale = localStorage.getItem("scale");
+            if (lastScale !== undefined) {
+                scale = getScale(Number(lastScale));
+                updateScaleIndicator(scale);
+                scaleSlider.value = lastScale;
+            }
             const lastContrast = localStorage.getItem("contrast");
             if (lastContrast !== undefined) {
-                contrast = Number(lastContrast) * 2.55;
+                contrast = getContrast(Number(lastContrast));
                 contrastSlider.value = lastContrast;
             }
+            const lastResizeCustom = localStorage.getItem("resizeCustom");
+            setResizeMode(lastResizeCustom === "true");
         });
     </script>
 </body>
