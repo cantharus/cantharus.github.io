@@ -268,6 +268,7 @@
             const lastContrast = localStorage.getItem("contrast");
             if (lastContrast !== undefined) {
                 contrast = Number(lastContrast) * 2.55;
+                contrastSlider.value = lastContrast;
             }
         });
     </script>
