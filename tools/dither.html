@@ -18,15 +18,15 @@
                 <option value="obesk">obesk</option>
                 <option value="bstrd">bstrd</option>
                 <option value="cmyk">cmyk</option>
-                <!-- <option value="custom">custom</option> -->
+                <option value="custom">custom</option>
             </select>
         </div>
     </form>
     <canvas id="display">
     </canvas>
     <script>
-        function die(why) {
-            alert(`page broke, call a doctor: ${why}`);
+        function die(why, how = "page broke, call a doctor") {
+            alert(`${how}: ${why}`);
             throw why;
         }
         
@@ -47,7 +47,7 @@
         
         const paletteImport = document.getElementById("palette-import");
         if (paletteImport === null) die("#palette-import missing");
-        paletteImport.addEventListener("click", () => alert("sorry, this isn't implemented yet"));
+        paletteImport.addEventListener("click", handlePaletteImport);
 
         let lastBitmap;
         function loadImage() {
@@ -59,7 +59,7 @@
                 createImageBitmap(file).then((bitmap) => {
                     lastBitmap = bitmap;
                     render(bitmap);
-                }).catch((error) => { die(error); });
+                }).catch((error) => { die(error, "failed to load the image"); });
             });
             input.click();
         }
@@ -93,9 +93,55 @@
                     break;
             }
 
-            render(lastBitmap);
+            if (lastBitmap) render(lastBitmap);
 
             localStorage.setItem("lastPalette", currentPalette);
+        }
+
+        // TODO: allow the user to change the name of the custom palette
+        function handlePaletteImport() {
+            let input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.addEventListener("change", function() {
+                const file = input.files[0];
+                createImageBitmap(file).then((bitmap) => {
+                    const w = bitmap.width;
+                    const h = bitmap.height;
+                    const tempCanvas = document.createElement("canvas");
+                    tempCanvas.width = w;
+                    tempCanvas.height = h;
+                    const ctx = tempCanvas.getContext("2d", { willReadFrequently: true });
+                    ctx.drawImage(bitmap, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, w, h);
+                    const data = imageData.data;
+                    const palette = [];
+                    for (let i = 0; i < w * h * 16; i += 4) {
+                        if (palette.length >= 1024) {
+                            throw "arbitrary color limit reached (sorry)";
+                        }
+                        if (data[i + 3] === 0) continue;
+                        const newColor = [data[i], data[i + 1], data[i + 2]];
+                        let exists = false;
+                        for (const color of palette) {
+                            if (color[0] === newColor[0] && color[1] === newColor[1] && color[2] === newColor[2]) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists) palette.push(newColor);
+                    }
+                    importPalette(palette, "custom");
+                    alert("palette imported succesfully");
+                    changePalette("custom");
+                }).catch((error) => { die(error, "failed to load the palette"); });
+            });
+            input.click();
+        }
+
+        function importPalette(palette, name = "custom") {
+            if (name !== "custom") throw "error: you can't do that yet";
+            palettes[name] = palette;
         }
         
         function render(bitmap) {
@@ -104,7 +150,7 @@
             display.width = w;
             display.height = h;
 
-            const ctx = display.getContext("2d");
+            const ctx = display.getContext("2d", { willReadFrequently: true });
             ctx.drawImage(bitmap, 0, 0);
 
             const imageData = ctx.getImageData(0, 0, w, h);
