@@ -65,6 +65,7 @@
         if (contrastSlider === null || contrastSlider.tagName != "INPUT") die("#contrast missing");
         contrastSlider.addEventListener("change", () => {
             contrast = contrastSlider.value * 2.55;
+            localStorage.setItem("contrast", contrastSlider.value);
             if (lastBitmap) render(lastBitmap);
         });
 
@@ -263,6 +264,10 @@
             if (palettes[lastPalette] !== undefined) {
                 currentPalette = lastPalette;
                 paletteSelect.value = currentPalette;
+            }
+            const lastContrast = localStorage.getItem("contrast");
+            if (lastContrast !== undefined) {
+                contrast = Number(lastContrast) * 2.55;
             }
         });
     </script>
