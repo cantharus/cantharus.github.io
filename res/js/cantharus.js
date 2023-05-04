@@ -194,7 +194,7 @@
         quote_rollForInitiative,
 
         //// other games
-        `Thank you, Mario! <a class="secret" href="https://nightshade.network/\ target="_blank">But our princess is in another castle!</a>`,
+        `Thank you, Mario! <a class="secret" href="https://nightshade.network/" target="_blank">But our princess is in another castle!</a>`,
         "Stout Shako for 6 refined! <small>(Blame inflation for that one.)</small>",
         "\u{26A0}\u{FE0F} Something is creating script errors",
         "Would you kindly click the \u{201C}change the quote\u{201D} button?",
