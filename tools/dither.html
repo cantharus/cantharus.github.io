@@ -238,23 +238,21 @@
         let currentPalette = "obesk";
         const palettes = {
             obesk: [[0, 255, 255], [255, 0, 255], [0, 0, 0], [255, 255, 255]],
+            theircity: [[255, 255, 0], [255, 255, 255], [0, 0, 0]],
             bstrd: [[255, 0, 102], [255, 255, 0], [0, 0, 0], [255, 255, 255]],
             cmyk: [[0, 255, 255], [255, 0, 255], [255, 255, 0], [0, 0, 0], [255, 255, 255]],
+            rgb: [[255, 0, 0], [0, 255, 0], [0, 0, 255], [255, 255, 255], [0, 0, 0]],
+            een: [[0, 255, 0], [180, 255, 180], [0, 16, 0], [90, 255, 0], [0, 255, 90]],
             custom: [[255, 255, 255], [0, 0, 0]]
         };
 
         function changePalette() {
             const value = paletteSelect.value;
 
-            switch (value) {
-                case "obesk":
-                case "bstrd":
-                case "cmyk":
-                    currentPalette = value;
-                    break;
-                default:
-                    currentPalette = "custom";
-                    break;
+            if (palettes[value]) {
+                currentPalette = value;
+            } else {
+                currentPalette = "custom";
             }
 
             rerender();
