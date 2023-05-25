@@ -53,6 +53,15 @@
                 <option value="100"></option>
             </datalist>
         </div>
+        <div>
+            <label for="brightness">brightness: </label>
+            <input type="range" id="brightness" name="brightness" min="-1" max="1" step="0.0625" value="0" list="brightness-markers">
+            <datalist id="brightness-markers">
+                <option value="-1"></option>
+                <option value="0"></option>
+                <option value="1"></option>
+            </datalist>
+        </div>
     </form>
     <canvas id="display">
     </canvas>
@@ -225,13 +234,22 @@
         }
 
         let contrast = 0;
-        const contrastSlider = document.getElementById("contrast");
-        if (contrastSlider === null || contrastSlider.tagName !== "INPUT") die("#contrast missing");
+        const contrastSlider = ensureElement("contrast", "INPUT");
         contrastSlider.addEventListener("change", () => setContrast(contrastSlider.value));
+
+        let brightness = 0;
+        const brightnessSlider = ensureElement("brightness", "INPUT");
+        brightnessSlider.addEventListener("change", () => setBrightness(brightnessSlider.value));
 
         function setContrast(value) {
             contrast = getContrast(value);
             localStorage.setItem("contrast", value);
+            rerender();
+        }
+
+        function setBrightness(value) {
+            brightness = getBrightness(value);
+            localStorage.setItem("brightness", value);
             rerender();
         }
 
@@ -322,13 +340,14 @@
             const palette = palettes[currentPalette];
 
             const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast))
+            const brightnessFactor = 128 * (1 + brightness);
 
             for (let y = 0; y < h; y++) {
                 for (let x = 0; x < w; x++) {
                     let index = (x + y * w) * 4;
-                    const colorR = addByte(contrastFactor * (data[index] - 128), 128);
-                    const colorG = addByte(contrastFactor * (data[index + 1] - 128), 128);
-                    const colorB = addByte(contrastFactor * (data[index + 2] - 128), 128);
+                    const colorR = addByte(contrastFactor * (data[index] - 128), brightnessFactor);
+                    const colorG = addByte(contrastFactor * (data[index + 1] - 128), brightnessFactor);
+                    const colorB = addByte(contrastFactor * (data[index + 2] - 128), brightnessFactor);
 
                     const bestColor = getNearestColor([colorR, colorG, colorB], palette);
                     const bestColorR = bestColor[0];
@@ -423,6 +442,11 @@
             return value * 2.55;
         }
 
+        function getBrightness(value) {
+            const abs = Math.min(Math.max(Math.abs(value), 0), 1);
+            return Math.sign(value) * abs * abs;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const lastPalette = localStorage.getItem("lastPalette");
             if (palettes[lastPalette] !== undefined) {
@@ -439,6 +463,11 @@
             if (lastContrast !== undefined) {
                 contrast = getContrast(Number(lastContrast));
                 contrastSlider.value = lastContrast;
+            }
+            const lastBrightness = localStorage.getItem("brightness");
+            if (lastBrightness !== undefined) {
+                brightness = getBrightness(Number(lastBrightness));
+                brightnessSlider.value = brightness;
             }
             const lastResizeCustom = localStorage.getItem("resizeCustom");
             setResizeMode(lastResizeCustom === "true");
