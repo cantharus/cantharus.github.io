@@ -21,6 +21,7 @@
                 <option value="cmyk">cmyk</option>
                 <option value="rgb">rgb</option>
                 <option value="een">een</option>
+                <option value="blou">blou</option>
                 <option value="custom">custom</option>
             </select>
         </div>
@@ -264,6 +265,7 @@
             cmyk: [[0, 255, 255], [255, 0, 255], [255, 255, 0], [0, 0, 0], [255, 255, 255]],
             rgb: [[255, 0, 0], [0, 255, 0], [0, 0, 255], [255, 255, 255], [0, 0, 0]],
             een: [[0, 255, 0], [180, 255, 180], [0, 16, 0], [90, 255, 0], [0, 255, 90]],
+            blou: [[0, 255, 8], [255, 0, 4], [40, 26, 112], [207, 198, 255], [22, 15, 63]],
             custom: [[255, 255, 255], [0, 0, 0]]
         };
 
@@ -472,6 +474,24 @@
             }
             const lastResizeCustom = localStorage.getItem("resizeCustom");
             setResizeMode(lastResizeCustom === "true");
+        });
+
+        document.addEventListener("paste", (e) => {
+            const items = e.clipboardData;
+            for (const item of items.items)
+            {
+                if (item.kind === "file")
+                {
+                    const blob = item.getAsFile();
+                    createImageBitmap(blob).then((bitmap) => {
+                        lastBitmap = bitmap;
+                        updateWidth(bitmap.width, false);
+                        updateHeight(bitmap.height, false);
+                        render(bitmap);
+                    }).catch((error) => { die(error, "failed to load the image"); });
+                    return;
+                }
+            }
         });
     </script>
 </body>
