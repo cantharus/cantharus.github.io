@@ -1,0 +1,21 @@
+@import url(/css/fonts.css);
+
+:root {
+    --color-50: #f6f7f9;
+    --color-100: #eceff2;
+    --color-200: #d4dbe3;
+    --color-300: #aebbcb;
+    --color-400: #8397ad;
+    --color-500: #637b94;
+    --color-600: #4f627a;
+    --color-700: #445469;
+    --color-800: #384454;
+    --color-900: #323B48;
+    --color-950: #212730;
+
+    background-color: var(--color-700);
+    font-family: "schibstedgrotesk";
+    font-size: 16pt;
+    color: var(--color-100);
+    image-rendering: pixelated;
+}

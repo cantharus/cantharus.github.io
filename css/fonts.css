@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "schibstedgrotesk";
+    src:
+        local("Schibsted Grotesk"),
+        url("/fonts/SchibstedGrotesk-Regular.woff2") format("woff2");
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: "merriweather";
+    src:
+        local("Merriweather Light"),
+        url("/fonts/Merriweather-Light.woff2") format("woff2"),
+        url("/fonts/Merriweather-Light.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
